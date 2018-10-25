@@ -25,7 +25,7 @@ app.get('/login', (req, res) => {
 app.get('/callback', (req, res) => {
   const code = req.query.code || null
 
-  const authorizationRequest = {
+  const tokenRequest = {
     url: 'https://accounts.spotify.com/api/token',
     headers: {
       'Authorization': 'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64')
@@ -34,12 +34,33 @@ app.get('/callback', (req, res) => {
       grant_type: 'authorization_code',
       code: code,
       redirect_uri: redirectURI
-    }
+    },
+    json: true
   }
 
-  request.post(authorizationRequest, (err, res, body) => {
-    console.log(body)
-    if (err) console.log(err)
+  request.post(tokenRequest, (error, response, body) => {
+    if (!error && response.statusCode === 200) {
+      const accessToken = body.access_token
+      const refreshToken = body.refresh_token
+
+      const userDataRequest = {
+        url: 'https://api.spotify.com/v1/me',
+        headers: { 'Authorization': 'Bearer ' + accessToken },
+        json: true
+      }
+
+      request.get(userDataRequest, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+          console.log(body)
+        }
+        else {
+          console.log(error)
+        }
+      })
+    }
+    else {
+      console.log(error)
+    }
   })
 })
 
