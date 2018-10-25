@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path')
 const querystring = require('querystring')
 const request = require('request')
+const { MongoClient } = require('mongodb')
+require('dotenv/config')
 
 const clientId = 'ee3918a44251433a87cbc842f68bc29f'
 const clientSecret = 'd380cc6c46cd4326bc0cff2d2fd8e3c7'
@@ -52,6 +54,23 @@ app.get('/callback', (req, res) => {
       request.get(userDataRequest, (error, response, body) => {
         if (!error && response.statusCode === 200) {
           console.log(body)
+          const { email, uri } = body
+          MongoClient
+            .connect(process.env.MONGODB_URI)
+            .then(client => {
+              client
+                .db()
+                .collection('users')
+                .findOneAndReplace({ email }, {
+                  displayName: body.display_name,
+                  email,
+                  uri,
+                  accessToken,
+                  refreshToken
+                }, { upsert: true })
+            })
+
+          res.redirect('/#')
         }
         else {
           console.log(error)
