@@ -38,8 +38,8 @@
   "homepage": "https://github.com/jjnotjayjay/social-spotify#readme",
   "dependencies": {
     "express": "^4.16.4",
-    "nodemon": "^1.18.4",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "eslint": "^5.7.0",
@@ -52,6 +52,7 @@
     "htmlhint": "^0.10.1",
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
+    "nodemon": "^1.18.4",
     "stylelint": "^9.6.0",
     "stylelint-config-standard": "^18.2.0"
   }

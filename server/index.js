@@ -1,13 +1,13 @@
 const express = require('express')
 const path = require('path')
 const querystring = require('querystring')
+const request = require('request')
 
 const clientId = 'ee3918a44251433a87cbc842f68bc29f'
 const clientSecret = 'd380cc6c46cd4326bc0cff2d2fd8e3c7'
 const redirectURI = 'http://localhost:7777/callback'
 
 const app = express()
-
 app.use(express.static(path.join(__dirname, '/public')))
 
 app.get('/login', (req, res) => {
@@ -23,9 +23,24 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/callback', (req, res) => {
-  console.log('Get request received!')
-  console.log(req)
-  res.json(req.query.code)
+  const code = req.query.code || null
+
+  const authorizationRequest = {
+    url: 'https://accounts.spotify.com/api/token',
+    headers: {
+      'Authorization': 'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64')
+    },
+    form: {
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: redirectURI
+    }
+  }
+
+  request.post(authorizationRequest, (err, res, body) => {
+    console.log(body)
+    if (err) console.log(err)
+  })
 })
 
 app.listen(7777)
