@@ -44,6 +44,7 @@ app.get('/callback', (req, res) => {
     if (!error && response.statusCode === 200) {
       const accessToken = body.access_token
       const refreshToken = body.refresh_token
+      console.log(body.expires_in)
 
       const userDataRequest = {
         url: 'https://api.spotify.com/v1/me',
