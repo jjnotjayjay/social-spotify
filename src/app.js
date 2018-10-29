@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Login from './login.js'
+import Playlists from './playlists.js'
 import hashParser from './hash-parser.js'
 
 class App extends React.Component {
@@ -25,7 +26,7 @@ class App extends React.Component {
       case 'login':
         return <Login />
       case 'playlist':
-        return <p>Playlist</p>
+        return <Playlists accessToken={this.state.accessToken}/>
     }
   }
 
