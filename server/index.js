@@ -78,7 +78,7 @@ app.get('/callback', (req, res) => {
             })
         })
     })
-    .catch(err => console.log(err))
+    .catch(err => res.status(400).send(err))
 })
 
 app.listen(7777)
