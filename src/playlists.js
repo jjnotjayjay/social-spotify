@@ -1,5 +1,20 @@
 import React from 'react'
 import requestPromise from 'request-promise'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Divider from '@material-ui/core/Divider'
+
+function renderPlaylist(playlist) {
+  return (
+    <div>
+      <ListItem>
+        <ListItemText primary={playlist.name} secondary={'by ' + playlist.owner.display_name}/>
+      </ListItem>
+      <Divider />
+    </div>
+  )
+}
 
 export default class Playlists extends React.Component {
   constructor(props) {
@@ -17,13 +32,23 @@ export default class Playlists extends React.Component {
     }
 
     requestPromise.get(playlistDataRequest)
-      .then(res => console.log(res))
+      .then(res => {
+        this.setState({
+          playlists: res.items
+        })
+      })
       .catch(err => console.log(err))
   }
 
   render() {
+    const { playlists } = this.state
     return (
-      <p>Playlist</p>
+      <div>
+        <h1>Playlists</h1>
+        <List>
+          {playlists.map(playlist => renderPlaylist(playlist))}
+        </List>
+      </div>
     )
   }
 }
