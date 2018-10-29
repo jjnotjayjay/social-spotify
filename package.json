@@ -1,0 +1,74 @@
+{
+  "name": "social-spotify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify src/app.js -vd -t babelify -o server/public/main.js",
+    "watch": "watchify src/app.js -vd -t babelify -o server/public/main.js",
+    "watch-server": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjnotjayjay/social-spotify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.html": [
+      "htmlhint"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/jjnotjayjay/social-spotify/issues"
+  },
+  "homepage": "https://github.com/jjnotjayjay/social-spotify#readme",
+  "dependencies": {
+    "@material-ui/core": "^3.3.1",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.8",
+    "querystring": "^0.2.0",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "eslint": "^5.7.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "htmlhint": "^0.10.1",
+    "husky": "^1.1.2",
+    "lint-staged": "^7.3.0",
+    "nodemon": "^1.18.4",
+    "stylelint": "^9.6.0",
+    "stylelint-config-standard": "^18.2.0",
+    "watchify": "^3.11.0"
+  }
+}
