@@ -46,7 +46,8 @@
     "querystring": "^0.2.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.1.0",

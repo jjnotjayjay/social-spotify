@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const querystring = require('querystring')
-const request = require('request')
+const requestPromise = require('request-promise')
 const { MongoClient } = require('mongodb')
 require('dotenv/config')
 
@@ -40,10 +40,10 @@ app.get('/callback', (req, res) => {
     json: true
   }
 
-  request.post(tokenRequest, (error, response, body) => {
-    if (!error && response.statusCode === 200) {
-      const accessToken = body.access_token
-      const refreshToken = body.refresh_token
+  requestPromise.post(tokenRequest)
+    .then(tokenData => {
+      const accessToken = tokenData.access_token
+      const refreshToken = tokenData.refresh_token
 
       const userDataRequest = {
         url: 'https://api.spotify.com/v1/me',
@@ -51,11 +51,11 @@ app.get('/callback', (req, res) => {
         json: true
       }
 
-      request.get(userDataRequest, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          const { email, uri } = body
+      return requestPromise.get(userDataRequest)
+        .then(userDataResponse => {
+          const { email, uri } = userDataResponse
           const userData = {
-            displayName: body.display_name,
+            displayName: userDataResponse.display_name,
             email,
             uri,
             accessToken,
@@ -75,16 +75,9 @@ app.get('/callback', (req, res) => {
               accessToken,
               refreshToken
             }))
-        }
-        else {
-          console.log(error)
-        }
-      })
-    }
-    else {
-      console.log(error)
-    }
-  })
+        })
+    })
+    .catch(err => console.log(err))
 })
 
 app.listen(7777)
