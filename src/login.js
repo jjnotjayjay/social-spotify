@@ -8,7 +8,7 @@ const PaddedButton = withStyles({
 
 export default function Login() {
   return (
-    <div className="centered shadow">
+    <div className="centered">
       <img id="login-logo" src="assets/logo.png"/>
       <PaddedButton href="/login" size="large" color="primary" variant="contained">Login to Spotify</PaddedButton>
     </div>
