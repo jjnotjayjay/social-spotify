@@ -4,13 +4,24 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
+import { withStyles } from '@material-ui/core/styles'
+
+const OpaqueListItem = withStyles({
+  root: {
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    width: '86%',
+    maxWidth: '600px',
+    margin: 'auto',
+    borderRadius: '1vh'
+  }
+})(ListItem)
 
 function renderPlaylist(playlist) {
   return (
     <div>
-      <ListItem>
+      <OpaqueListItem>
         <ListItemText primary={playlist.name} secondary={'by ' + playlist.owner.display_name}/>
-      </ListItem>
+      </OpaqueListItem>
       <Divider />
     </div>
   )
