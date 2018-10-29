@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb')
 require('dotenv/config')
 
 const clientId = 'ee3918a44251433a87cbc842f68bc29f'
-const clientSecret = 'd380cc6c46cd4326bc0cff2d2fd8e3c7'
+const clientSecret = process.env.CLIENT_SECRET
 const redirectURI = 'http://localhost:7777/callback'
 
 const app = express()
