@@ -69,12 +69,13 @@ app.get('/callback', (req, res) => {
                 .collection('users')
                 .findOneAndReplace({ email }, userData, { upsert: true })
             })
-
-          res.redirect('/#' +
-            querystring.stringify({
-              accessToken,
-              refreshToken
-            }))
+            .then(() => {
+              res.redirect('/#' +
+              querystring.stringify({
+                accessToken,
+                refreshToken
+              }))
+            })
         })
     })
     .catch(err => console.log(err))
