@@ -70,7 +70,7 @@ app.get('/callback', (req, res) => {
                 .findOneAndReplace({ email }, userData, { upsert: true })
             })
             .then(() => {
-              res.redirect('/#' +
+              res.redirect('/#playlist?' +
               querystring.stringify({
                 accessToken,
                 refreshToken
