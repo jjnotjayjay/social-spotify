@@ -6,6 +6,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import { withStyles } from '@material-ui/core/styles'
+import { SPOTIFY_API } from './constants.js'
 
 const OpaqueList = withStyles({
   root: {
@@ -41,7 +42,8 @@ export default class Songs extends React.Component {
 
   componentDidMount() {
     const songDataRequest = {
-      url: 'https://api.spotify.com/v1/playlists/' +
+      url: SPOTIFY_API +
+        'playlists/' +
         this.props.selectedPlaylist +
         '/tracks',
       headers: { Authorization: 'Bearer ' + this.props.accessToken },

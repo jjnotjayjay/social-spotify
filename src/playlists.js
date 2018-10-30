@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import { withStyles } from '@material-ui/core/styles'
+import { SPOTIFY_API } from './constants.js'
 
 const OpaqueListItem = withStyles({
   root: {
@@ -26,7 +27,7 @@ export default class Playlists extends React.Component {
 
   componentDidMount() {
     const playlistDataRequest = {
-      url: 'https://api.spotify.com/v1/me/playlists',
+      url: SPOTIFY_API + 'me/playlists',
       headers: { 'Authorization': 'Bearer ' + this.props.accessToken },
       json: true
     }
