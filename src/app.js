@@ -12,7 +12,7 @@ class App extends React.Component {
     this.state = {
       view: hashParser(window.location.hash)[0] || 'login',
       accessToken: hashParser(window.location.hash)[1].accessToken || '',
-      image: hashParser(window.location.hash)[1].image || '',
+      userImage: hashParser(window.location.hash)[1].image || '',
       selectedPlaylist: null
     }
     this.updateSelectedPlaylist = this.updateSelectedPlaylist.bind(this)
@@ -41,7 +41,7 @@ class App extends React.Component {
         return (
           <div>
             <div className="new-block-formatting-context">
-              <Avatar userImage={this.state.image} />
+              <Avatar userImage={this.state.userImage} />
             </div>
             <Playlists accessToken={this.state.accessToken} updateSelected={this.updateSelectedPlaylist}/>
           </div>
@@ -50,7 +50,7 @@ class App extends React.Component {
         return (
           <div>
             <div className="new-block-formatting-context">
-              <Avatar userImage={this.state.image} />
+              <Avatar userImage={this.state.userImage} />
             </div>
             <Songs accessToken={this.state.accessToken} selectedPlaylist={this.state.selectedPlaylist}/>
           </div>
