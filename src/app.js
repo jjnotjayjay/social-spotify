@@ -11,9 +11,8 @@ class App extends React.Component {
     this.state = {
       view: hashParser(window.location.hash)[0] || 'login',
       accessToken: hashParser(window.location.hash)[1].accessToken || '',
-      displayName: hashParser(window.location.hash)[1].displayName || '',
-      image: hashParser(window.location.hash)[1].image || ''
-
+      image: hashParser(window.location.hash)[1].image || '',
+      selectedPlaylist: null
     }
   }
 

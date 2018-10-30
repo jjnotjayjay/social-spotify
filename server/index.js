@@ -75,7 +75,6 @@ app.get('/callback', (req, res) => {
               querystring.stringify({
                 accessToken,
                 refreshToken,
-                displayName: userData.displayName,
                 image: userData.image
               }))
             })
