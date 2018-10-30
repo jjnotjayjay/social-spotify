@@ -57,6 +57,7 @@ app.get('/callback', (req, res) => {
           const userData = {
             displayName: userDataResponse.display_name,
             email,
+            image: userDataResponse.images[0].url,
             uri,
             accessToken,
             refreshToken
@@ -73,7 +74,8 @@ app.get('/callback', (req, res) => {
               res.redirect('/#playlist?' +
               querystring.stringify({
                 accessToken,
-                refreshToken
+                refreshToken,
+                image: userData.image
               }))
             })
         })
