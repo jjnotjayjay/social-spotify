@@ -54,12 +54,9 @@ export default class Playlists extends React.Component {
   render() {
     const { playlists } = this.state
     return (
-      <div>
-        <h1>Playlists</h1>
-        <List>
-          {playlists.map(playlist => renderPlaylist(playlist))}
-        </List>
-      </div>
+      <List>
+        {playlists.map(playlist => renderPlaylist(playlist))}
+      </List>
     )
   }
 }
