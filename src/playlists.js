@@ -16,17 +16,6 @@ const OpaqueListItem = withStyles({
   }
 })(ListItem)
 
-function renderPlaylist(playlist) {
-  return (
-    <div>
-      <OpaqueListItem>
-        <ListItemText primary={playlist.name} secondary={'by ' + playlist.owner.display_name}/>
-      </OpaqueListItem>
-      <Divider />
-    </div>
-  )
-}
-
 export default class Playlists extends React.Component {
   constructor(props) {
     super(props)
@@ -55,7 +44,16 @@ export default class Playlists extends React.Component {
     const { playlists } = this.state
     return (
       <List>
-        {playlists.map(playlist => renderPlaylist(playlist))}
+        {playlists.map((playlist, index) => {
+          return (
+            <div key={index}>
+              <OpaqueListItem onClick={() => this.props.updateSelected(playlist.id)}>
+                <ListItemText primary={playlist.name} secondary={'by ' + playlist.owner.display_name}/>
+              </OpaqueListItem>
+              <Divider />
+            </div>
+          )
+        })}
       </List>
     )
   }

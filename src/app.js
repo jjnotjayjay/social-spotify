@@ -14,6 +14,7 @@ class App extends React.Component {
       image: hashParser(window.location.hash)[1].image || '',
       selectedPlaylist: null
     }
+    this.updateSelectedPlaylist = this.updateSelectedPlaylist.bind(this)
   }
 
   componentDidMount() {
@@ -21,6 +22,12 @@ class App extends React.Component {
       this.setState({
         view: hashParser(window.location.hash)[0]
       })
+    })
+  }
+
+  updateSelectedPlaylist(playlistURI) {
+    this.setState({
+      selectedPlaylist: playlistURI
     })
   }
 
@@ -34,7 +41,7 @@ class App extends React.Component {
             <div className="hide-overflow">
               <Avatar userImage={this.state.image} />
             </div>
-            <Playlists accessToken={this.state.accessToken} />
+            <Playlists accessToken={this.state.accessToken} updateSelected={this.updateSelectedPlaylist}/>
           </div>
         )
     }
