@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Login from './login.js'
-import Avatar from './avatar.js'
+import PageHeader from './page-header.js'
 import Playlists from './playlists.js'
 import Songs from './songs.js'
 import hashParser from './hash-parser.js'
@@ -40,18 +40,14 @@ class App extends React.Component {
       case 'playlist':
         return (
           <div>
-            <div className="new-block-formatting-context">
-              <Avatar userImage={this.state.userImage} />
-            </div>
+            <PageHeader view={this.state.view} userImage={this.state.userImage} />
             <Playlists accessToken={this.state.accessToken} updateSelected={this.updateSelectedPlaylist}/>
           </div>
         )
       case 'songs':
         return (
           <div>
-            <div className="new-block-formatting-context">
-              <Avatar userImage={this.state.userImage} />
-            </div>
+            <PageHeader view={this.state.view} userImage={this.state.userImage} />
             <Songs accessToken={this.state.accessToken} selectedPlaylist={this.state.selectedPlaylist}/>
           </div>
         )
