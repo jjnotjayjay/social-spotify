@@ -60,9 +60,9 @@ export default class Songs extends React.Component {
     const { songs } = this.state
     return (
       <OpaqueList>
-        {songs.map((song, index) => {
+        {songs.map(song => {
           return (
-            <NarrowListItem key={index}>
+            <NarrowListItem key={song.track.id}>
               <ListItemAvatar>
                 <Avatar src={song.track.album.images[0].url} />
               </ListItemAvatar>

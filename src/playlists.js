@@ -44,9 +44,9 @@ export default class Playlists extends React.Component {
     const { playlists } = this.state
     return (
       <List>
-        {playlists.map((playlist, index) => {
+        {playlists.map(playlist => {
           return (
-            <div key={index}>
+            <div key={playlist.id}>
               <OpaqueListItem onClick={() => this.props.updateSelected(playlist.id)}>
                 <ListItemText primary={playlist.name} secondary={'by ' + playlist.owner.display_name}/>
               </OpaqueListItem>
