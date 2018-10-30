@@ -3,7 +3,7 @@ import Avatar from '@material-ui/core/Avatar'
 
 function UserAvatar(props) {
   return (
-    <Avatar src='' />
+    <Avatar src={props.userImage} />
   )
 }
 

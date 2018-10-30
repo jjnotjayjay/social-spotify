@@ -74,7 +74,9 @@ app.get('/callback', (req, res) => {
               res.redirect('/#playlist?' +
               querystring.stringify({
                 accessToken,
-                refreshToken
+                refreshToken,
+                displayName: userData.displayName,
+                image: userData.image
               }))
             })
         })

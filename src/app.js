@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Login from './login.js'
 import Playlists from './playlists.js'
+import Avatar from './avatar.js'
 import hashParser from './hash-parser.js'
 
 class App extends React.Component {
@@ -9,7 +10,10 @@ class App extends React.Component {
     super(props)
     this.state = {
       view: hashParser(window.location.hash)[0] || 'login',
-      accessToken: hashParser(window.location.hash)[1].accessToken || ''
+      accessToken: hashParser(window.location.hash)[1].accessToken || '',
+      displayName: hashParser(window.location.hash)[1].displayName || '',
+      image: hashParser(window.location.hash)[1].image || ''
+
     }
   }
 
@@ -26,7 +30,12 @@ class App extends React.Component {
       case 'login':
         return <Login />
       case 'playlist':
-        return <Playlists accessToken={this.state.accessToken}/>
+        return (
+          <div>
+            <Avatar userImage={this.state.image} />
+            <Playlists accessToken={this.state.accessToken} />
+          </div>
+        )
     }
   }
 
