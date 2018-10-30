@@ -32,7 +32,9 @@ class App extends React.Component {
       case 'playlist':
         return (
           <div>
-            <Avatar userImage={this.state.image} />
+            <div className="hide-overflow">
+              <Avatar userImage={this.state.image} />
+            </div>
             <Playlists accessToken={this.state.accessToken} />
           </div>
         )
