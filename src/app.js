@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Login from './login.js'
-import Playlists from './playlists.js'
 import Avatar from './avatar.js'
+import Playlists from './playlists.js'
+import Songs from './songs.js'
 import hashParser from './hash-parser.js'
 
 class App extends React.Component {
@@ -27,7 +28,8 @@ class App extends React.Component {
 
   updateSelectedPlaylist(playlistURI) {
     this.setState({
-      selectedPlaylist: playlistURI
+      selectedPlaylist: playlistURI,
+      view: 'songs'
     })
   }
 
@@ -38,10 +40,19 @@ class App extends React.Component {
       case 'playlist':
         return (
           <div>
-            <div className="hide-overflow">
+            <div className="new-block-formatting-context">
               <Avatar userImage={this.state.image} />
             </div>
             <Playlists accessToken={this.state.accessToken} updateSelected={this.updateSelectedPlaylist}/>
+          </div>
+        )
+      case 'songs':
+        return (
+          <div>
+            <div className="new-block-formatting-context">
+              <Avatar userImage={this.state.image} />
+            </div>
+            <Songs accessToken={this.state.accessToken} selectedPlaylist={this.state.selectedPlaylist}/>
           </div>
         )
     }

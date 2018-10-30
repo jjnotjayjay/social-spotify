@@ -25,6 +25,6 @@ body {
   transform: translateY(-50%) translateX(-50%);
 }
 
-.hide-overflow {
+.new-block-formatting-context {
   overflow: hidden;
 }
