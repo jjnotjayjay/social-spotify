@@ -9,10 +9,8 @@ const MarginAvatar = withStyles({
   }
 })(Avatar)
 
-function UserAvatar(props) {
+export default function UserAvatar(props) {
   return (
     <MarginAvatar src={props.userImage} />
   )
 }
-
-module.exports = UserAvatar
