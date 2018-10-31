@@ -21,7 +21,7 @@ export default class StarRating extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      rating: props.currentRating || 2
+      rating: props.currentRating || 0
     }
   }
 
