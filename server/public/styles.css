@@ -24,7 +24,3 @@ body {
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 }
-
-.new-block-formatting-context {
-  overflow: hidden;
-}
