@@ -16,6 +16,7 @@ class App extends React.Component {
       selectedPlaylist: null
     }
     this.updateSelectedPlaylist = this.updateSelectedPlaylist.bind(this)
+    this.returnToPlaylists = this.returnToPlaylists.bind(this)
   }
 
   componentDidMount() {
@@ -33,6 +34,13 @@ class App extends React.Component {
     })
   }
 
+  returnToPlaylists() {
+    this.setState({
+      selectedPlaylist: null,
+      view: 'playlist'
+    })
+  }
+
   renderView(view) {
     switch (view) {
       case 'login':
@@ -40,15 +48,15 @@ class App extends React.Component {
       case 'playlist':
         return (
           <div>
-            <PageHeader view={this.state.view} userImage={this.state.userImage} />
-            <Playlists accessToken={this.state.accessToken} updateSelected={this.updateSelectedPlaylist}/>
+            <PageHeader userImage={this.state.userImage} />
+            <Playlists accessToken={this.state.accessToken} updateSelected={this.updateSelectedPlaylist} />
           </div>
         )
       case 'songs':
         return (
           <div>
-            <PageHeader view={this.state.view} userImage={this.state.userImage} />
-            <Songs accessToken={this.state.accessToken} selectedPlaylist={this.state.selectedPlaylist}/>
+            <PageHeader view={this.state.view} userImage={this.state.userImage} returnToPlaylists={this.returnToPlaylists} />
+            <Songs accessToken={this.state.accessToken} selectedPlaylist={this.state.selectedPlaylist} />
           </div>
         )
     }

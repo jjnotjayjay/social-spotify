@@ -51,7 +51,7 @@ export default class Playlists extends React.Component {
               <OpaqueListItem onClick={() => this.props.updateSelected(playlist.id)}>
                 <ListItemText primary={playlist.name} secondary={'by ' + playlist.owner.display_name}/>
               </OpaqueListItem>
-              <Divider />
+              <Divider style={{ visibility: 'hidden' }}/>
             </div>
           )
         })}
