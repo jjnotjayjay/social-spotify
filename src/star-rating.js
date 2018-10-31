@@ -25,14 +25,18 @@ export default class StarRating extends React.Component {
     }
   }
 
+  updateRating(rating) {
+    this.setState({ rating })
+  }
+
   renderStars(rating) {
     const stars = []
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       if (i <= rating) {
-        stars.push(<GoldenStar />)
+        stars.push(<GoldenStar onClick={() => this.updateRating(i)}/>)
       }
       else {
-        stars.push(<TinyButton />)
+        stars.push(<TinyButton onClick={() => this.updateRating(i)}/>)
       }
     }
     return stars
