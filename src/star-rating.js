@@ -44,9 +44,9 @@ export default class StarRating extends React.Component {
 
   render() {
     return (
-      <div>
+      <span>
         {this.renderStars(this.state.rating)}
-      </div>
+      </span>
     )
   }
 }

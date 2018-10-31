@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
+import StarRating from './star-rating.js'
 import { withStyles } from '@material-ui/core/styles'
 import { SPOTIFY_API } from './constants.js'
 
@@ -16,13 +17,10 @@ const OpaqueList = withStyles({
   }
 })(List)
 
-const NarrowListItem = withStyles({
-  root: {
-    width: '80%'
-  }
-})(ListItem)
-
 const SongText = withStyles({
+  root: {
+    width: 'calc(100% - 160px)'
+  },
   primary: {
     lineHeight: '1rem',
     fontSize: '0.8rem'
@@ -64,12 +62,15 @@ export default class Songs extends React.Component {
       <OpaqueList>
         {songs.map(song => {
           return (
-            <NarrowListItem key={song.track.id}>
-              <ListItemAvatar>
-                <Avatar src={song.track.album.images[0].url} />
-              </ListItemAvatar>
-              <SongText primary={song.track.name} secondary={song.track.artists[0].name} />
-            </NarrowListItem>
+            <div key={song.track.id}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar src={song.track.album.images[0].url} />
+                </ListItemAvatar>
+                <SongText primary={song.track.name} secondary={song.track.artists[0].name} />
+                <StarRating />
+              </ListItem>
+            </div>
           )
         })}
       </OpaqueList>
