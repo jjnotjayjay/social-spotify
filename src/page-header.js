@@ -17,7 +17,7 @@ const BackButton = withStyles({
 export default function PageHeader(props) {
   return (
     <div style={{ overflow: 'hidden' }}>
-      {props.view === 'songs' && <BackButton />}
+      {props.view === 'songs' && <BackButton onClick={props.returnToPlaylists} />}
       <UserAvatar userImage={props.userImage} />
     </div>
   )
