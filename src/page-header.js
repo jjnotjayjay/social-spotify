@@ -1,10 +1,12 @@
 import React from 'react'
-import Avatar from './avatar.js'
+import UserAvatar from './avatar.js'
+import ArrowBack from '@material-ui/icons/ArrowBack'
 
 export default function PageHeader(props) {
   return (
     <div style={{ overflow: 'hidden' }}>
-      <Avatar userImage={props.userImage} />
+      {props.view === 'songs' && <ArrowBack />}
+      <UserAvatar userImage={props.userImage} />
     </div>
   )
 }
