@@ -1,13 +1,17 @@
 {
   "name": "social-spotify",
   "version": "1.0.0",
+  "engines": {
+    "node": "10"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify src/app.js -vd -t babelify -o server/public/main.js",
+    "postinstall": "browserify src/app.js -vd -t babelify -o server/public/main.js",
     "watch": "watchify src/app.js -vd -t babelify -o server/public/main.js",
-    "watch-server": "nodemon server/index.js"
+    "watch-server": "nodemon server/index.js",
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
