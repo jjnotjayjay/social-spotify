@@ -13,6 +13,7 @@ class App extends React.Component {
       view: hashParser(window.location.hash)[0] || 'login',
       accessToken: hashParser(window.location.hash)[1].accessToken || '',
       userImage: hashParser(window.location.hash)[1].image || '',
+      userId: hashParser(window.location.hash)[1].id || '',
       selectedPlaylist: null
     }
     this.updateSelectedPlaylist = this.updateSelectedPlaylist.bind(this)
@@ -27,9 +28,9 @@ class App extends React.Component {
     })
   }
 
-  updateSelectedPlaylist(playlistURI) {
+  updateSelectedPlaylist(playlistId) {
     this.setState({
-      selectedPlaylist: playlistURI,
+      selectedPlaylist: playlistId,
       view: 'songs'
     })
   }
@@ -56,7 +57,7 @@ class App extends React.Component {
         return (
           <div>
             <PageHeader view={this.state.view} userImage={this.state.userImage} returnToPlaylists={this.returnToPlaylists} />
-            <Songs accessToken={this.state.accessToken} selectedPlaylist={this.state.selectedPlaylist} />
+            <Songs accessToken={this.state.accessToken} userId={this.state.userId} selectedPlaylist={this.state.selectedPlaylist} />
           </div>
         )
     }

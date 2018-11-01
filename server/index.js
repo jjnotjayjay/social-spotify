@@ -3,6 +3,7 @@ const path = require('path')
 const querystring = require('querystring')
 const requestPromise = require('request-promise')
 const { MongoClient } = require('mongodb')
+const bodyParser = require('body-parser')
 require('dotenv/config')
 
 const clientId = 'ee3918a44251433a87cbc842f68bc29f'
@@ -53,12 +54,12 @@ app.get('/callback', (req, res) => {
 
       return requestPromise.get(userDataRequest)
         .then(userDataResponse => {
-          const { email, uri } = userDataResponse
+          const { email, id } = userDataResponse
           const userData = {
             displayName: userDataResponse.display_name,
             email,
             image: userDataResponse.images[0].url,
-            uri,
+            id,
             accessToken,
             refreshToken
           }
@@ -75,8 +76,58 @@ app.get('/callback', (req, res) => {
               querystring.stringify({
                 accessToken,
                 refreshToken,
-                image: userData.image
+                image: userData.image,
+                id: userData.id
               }))
+            })
+        })
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+app.use(bodyParser.json())
+
+app.post('/ratings', (req, res) => {
+  const { userId, playlistId, songId, rating } = req.body
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('ratings')
+        .findOneAndReplace({ userId, playlistId, songId }, { userId, playlistId, songId, rating }, { upsert: true, returnOriginal: false })
+        .then(result => res.json(result.value))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+app.post('/songs', (req, res) => {
+  requestPromise(req.body.songDataRequest)
+    .then(playlistData => {
+      MongoClient
+        .connect(process.env.MONGODB_URI)
+        .then(client => {
+          client
+            .db()
+            .collection('ratings')
+            .find({ playlistId: req.body.playlistId })
+            .toArray()
+            .then(ratedSongs => {
+              playlistData.items.forEach(item => {
+                const ratedSong = ratedSongs.find(song => song.songId === item.track.id)
+                if (ratedSong) {
+                  item.track.rating = ratedSong.rating
+                }
+              })
+            })
+            .then(() => {
+              res.send(playlistData)
             })
         })
     })
