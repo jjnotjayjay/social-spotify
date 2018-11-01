@@ -1,5 +1,4 @@
 import React from 'react'
-import requestPromise from 'request-promise'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
@@ -48,19 +47,24 @@ export default class Songs extends React.Component {
       json: true
     }
 
-    requestPromise(songDataRequest)
-      .then(res =>
+    fetch('/songs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(songDataRequest)
+    })
+      .then(res => res.json())
+      .then(res => {
         this.setState({
           songs: res.items
         })
-      )
+      })
   }
 
   render() {
     const { songs } = this.state
     return (
       <OpaqueList>
-        {songs.map(song => {
+        {songs && songs.map(song => {
           return (
             <div key={song.track.id}>
               <ListItem>

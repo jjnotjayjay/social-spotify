@@ -3,6 +3,7 @@ const path = require('path')
 const querystring = require('querystring')
 const requestPromise = require('request-promise')
 const { MongoClient } = require('mongodb')
+const bodyParser = require('body-parser')
 require('dotenv/config')
 
 const clientId = 'ee3918a44251433a87cbc842f68bc29f'
@@ -84,6 +85,35 @@ app.get('/callback', (req, res) => {
       console.log(err)
       res.sendStatus(500)
     })
+})
+
+app.use(bodyParser.json())
+
+app.post('/ratings', (req, res) => {
+  const { userId, playlistURI, songURI, rating } = req.body
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('ratings')
+        .findOneAndReplace({ userId, playlistURI, songURI }, { userId, playlistURI, songURI, rating }, { upsert: true, returnOriginal: false })
+        .then(result => res.json(result.value))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+app.post('/songs', (req, res) => {
+  requestPromise(req.body)
+    .then(playlistData => {
+      // for each item in playlistData songs array, look up each track (w/ playlist ID) from mongodb and add it as a property if found.
+      res.send(playlistData)
+    })
+
+  // should send array of songs with ratings
 })
 
 app.listen(7777)
