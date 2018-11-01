@@ -35,6 +35,7 @@ export default class Songs extends React.Component {
     this.state = {
       songs: []
     }
+    this.storeRating = this.storeRating.bind(this)
   }
 
   componentDidMount() {
@@ -60,6 +61,15 @@ export default class Songs extends React.Component {
       })
   }
 
+  storeRating(rating, songId) {
+    const { userId, selectedPlaylist: playlistId } = this.props
+    fetch('/ratings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, playlistId, songId, rating })
+    })
+  }
+
   render() {
     const { songs } = this.state
     return (
@@ -72,7 +82,7 @@ export default class Songs extends React.Component {
                   <Avatar src={song.track.album.images[0].url} />
                 </ListItemAvatar>
                 <SongText primary={song.track.name} secondary={song.track.artists[0].name} />
-                <StarRating />
+                <StarRating storeRating={this.storeRating} songId={song.track.id} />
               </ListItem>
             </div>
           )

@@ -54,12 +54,12 @@ app.get('/callback', (req, res) => {
 
       return requestPromise.get(userDataRequest)
         .then(userDataResponse => {
-          const { email, uri } = userDataResponse
+          const { email, id } = userDataResponse
           const userData = {
             displayName: userDataResponse.display_name,
             email,
             image: userDataResponse.images[0].url,
-            uri,
+            id,
             accessToken,
             refreshToken
           }
@@ -76,7 +76,8 @@ app.get('/callback', (req, res) => {
               querystring.stringify({
                 accessToken,
                 refreshToken,
-                image: userData.image
+                image: userData.image,
+                id: userData.id
               }))
             })
         })
@@ -90,14 +91,14 @@ app.get('/callback', (req, res) => {
 app.use(bodyParser.json())
 
 app.post('/ratings', (req, res) => {
-  const { userId, playlistURI, songURI, rating } = req.body
+  const { userId, playlistId, songId, rating } = req.body
   MongoClient
     .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
     .then(client => {
       client
         .db()
         .collection('ratings')
-        .findOneAndReplace({ userId, playlistURI, songURI }, { userId, playlistURI, songURI, rating }, { upsert: true, returnOriginal: false })
+        .findOneAndReplace({ userId, playlistId, songId }, { userId, playlistId, songId, rating }, { upsert: true, returnOriginal: false })
         .then(result => res.json(result.value))
     })
     .catch(err => {
