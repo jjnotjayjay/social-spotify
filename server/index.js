@@ -108,13 +108,33 @@ app.post('/ratings', (req, res) => {
 })
 
 app.post('/songs', (req, res) => {
-  requestPromise(req.body)
+  requestPromise(req.body.songDataRequest)
     .then(playlistData => {
-      // for each item in playlistData songs array, look up each track (w/ playlist ID) from mongodb and add it as a property if found.
-      res.send(playlistData)
+      MongoClient
+        .connect(process.env.MONGODB_URI)
+        .then(client => {
+          client
+            .db()
+            .collection('ratings')
+            .find({ playlistId: req.body.playlistId })
+            .toArray()
+            .then(ratedSongs => {
+              playlistData.items.forEach(item => {
+                const ratedSong = ratedSongs.find(song => song.songId === item.track.id)
+                if (ratedSong) {
+                  item.track.rating = ratedSong.rating
+                }
+              })
+            })
+            .then(() => {
+              res.send(playlistData)
+            })
+        })
     })
-
-  // should send array of songs with ratings
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
 })
 
 app.listen(7777)

@@ -39,19 +39,22 @@ export default class Songs extends React.Component {
   }
 
   componentDidMount() {
-    const songDataRequest = {
-      url: SPOTIFY_API +
-        'playlists/' +
-        this.props.selectedPlaylist +
-        '/tracks',
-      headers: { Authorization: 'Bearer ' + this.props.accessToken },
-      json: true
+    const req = {
+      playlistId: this.props.selectedPlaylist,
+      songDataRequest: {
+        url: SPOTIFY_API +
+          'playlists/' +
+          this.props.selectedPlaylist +
+          '/tracks',
+        headers: { Authorization: 'Bearer ' + this.props.accessToken },
+        json: true
+      }
     }
 
     fetch('/songs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(songDataRequest)
+      body: JSON.stringify(req)
     })
       .then(res => res.json())
       .then(res => {
@@ -82,7 +85,7 @@ export default class Songs extends React.Component {
                   <Avatar src={song.track.album.images[0].url} />
                 </ListItemAvatar>
                 <SongText primary={song.track.name} secondary={song.track.artists[0].name} />
-                <StarRating storeRating={this.storeRating} songId={song.track.id} />
+                <StarRating storeRating={this.storeRating} songId={song.track.id} currentRating={song.track.rating} />
               </ListItem>
             </div>
           )
