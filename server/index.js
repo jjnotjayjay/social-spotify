@@ -119,10 +119,10 @@ app.post('/songs', (req, res) => {
             .find({ playlistId: req.body.playlistId })
             .toArray()
             .then(ratedSongs => {
-              playlistData.items.forEach(item => {
-                const ratedSong = ratedSongs.find(song => song.songId === item.track.id)
-                if (ratedSong) {
-                  item.track.rating = ratedSong.rating
+              ratedSongs.forEach(ratedSong => {
+                const songInPlaylist = playlistData.items.find(song => song.track.id === ratedSong.songId)
+                if (songInPlaylist) {
+                  songInPlaylist.track.rating = ratedSong.rating
                 }
               })
             })
