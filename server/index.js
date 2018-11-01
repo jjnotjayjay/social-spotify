@@ -8,7 +8,7 @@ require('dotenv/config')
 
 const clientId = 'ee3918a44251433a87cbc842f68bc29f'
 const clientSecret = process.env.CLIENT_SECRET
-const redirectURI = 'http://localhost:7777/callback'
+const redirectURI = 'https://social-spotify-jjnotjayjay.herokuapp.com/callback'
 
 const app = express()
 app.use(express.static(path.join(__dirname, '/public')))
@@ -137,4 +137,4 @@ app.post('/songs', (req, res) => {
     })
 })
 
-app.listen(process.env.$PORT)
+app.listen(process.env.PORT)
