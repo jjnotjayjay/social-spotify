@@ -17,11 +17,12 @@ const BackButton = withStyles({
 
 const ShareButton = withStyles({
   root: {
+    fontSize: '20px',
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     width: '40px',
     height: '40px',
     borderRadius: '50%',
-    margin: '2vh',
+    margin: '2vh 0 2vh 2vh',
     float: 'right'
   }
 })(Share)
@@ -31,7 +32,7 @@ export default function PageHeader(props) {
     <div style={{ overflow: 'hidden' }}>
       {props.view === 'songs' && <BackButton onClick={props.returnToPlaylists} />}
       <UserAvatar userImage={props.userImage} />
-      {props.view === 'songs' && <ShareButton />}
+      {props.view === 'songs' && <ShareButton viewBox={'-3 -4 32 32'}/>}
     </div>
   )
 }
