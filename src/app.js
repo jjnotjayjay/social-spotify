@@ -4,6 +4,7 @@ import Login from './login.js'
 import PageHeader from './page-header.js'
 import Playlists from './playlists.js'
 import Songs from './songs.js'
+import UserList from './user-list.js'
 import hashParser from './hash-parser.js'
 
 class App extends React.Component {
@@ -69,7 +70,10 @@ class App extends React.Component {
         )
       case 'users':
         return (
-          <p>Users</p>
+          <div>
+            <PageHeader view={this.state.view} userImage={this.state.userImage} updateView={this.updateView} />
+            <UserList userId={this.state.userId} selectedPlaylist={this.state.selectedPlaylist} />
+          </div>
         )
     }
   }
