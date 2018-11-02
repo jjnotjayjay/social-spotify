@@ -32,7 +32,7 @@ export default function PageHeader(props) {
     <div style={{ overflow: 'hidden' }}>
       {props.view === 'songs' && <BackButton onClick={props.returnToPlaylists} />}
       <UserAvatar userImage={props.userImage} />
-      {props.view === 'songs' && <ShareButton viewBox={'-3 -4 32 32'}/>}
+      {props.view === 'songs' && <ShareButton onClick={() => props.updateView('users')} viewBox={'-3 -4 32 32'}/>}
     </div>
   )
 }
