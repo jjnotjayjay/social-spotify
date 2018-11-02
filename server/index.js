@@ -58,7 +58,7 @@ app.get('/callback', (req, res) => {
           const userData = {
             displayName: userDataResponse.display_name,
             email,
-            image: userDataResponse.images[0].url,
+            image: (userDataResponse.images[0] ? userDataResponse.images[0].url : null),
             id,
             accessToken,
             refreshToken
