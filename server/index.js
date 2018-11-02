@@ -90,6 +90,23 @@ app.get('/callback', (req, res) => {
 
 app.use(bodyParser.json())
 
+app.post('/users', (req, res) => {
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('users')
+        .find({ id: { $ne: req.body.userId } })
+        .toArray()
+        .then(otherUsers => res.json(otherUsers))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 app.post('/ratings', (req, res) => {
   const { userId, playlistId, songId, rating } = req.body
   MongoClient
