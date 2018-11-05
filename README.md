@@ -10,6 +10,9 @@ A tool for friendly music lovers to share, rate, and comment on songs and playli
 ## Rate your favorite (or least favorite) songs
 ![spotify-rate-songs](https://user-images.githubusercontent.com/39274776/47970855-9f998500-e03f-11e8-8ad1-ffea33d3110d.gif)
 
+## Share your rated playlists with other users
+![spotify-share-playlist](https://user-images.githubusercontent.com/39274776/48020131-f52a6c00-e0e9-11e8-80ca-d03bda46c5b0.gif)
+
 # Technologies Used
 * React.js
 * Spotify API
