@@ -90,14 +90,14 @@ app.get('/callback', (req, res) => {
 
 app.use(bodyParser.json())
 
-app.post('/users', (req, res) => {
+app.get('/users/:userId', (req, res) => {
   MongoClient
     .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
     .then(client => {
       client
         .db()
         .collection('users')
-        .find({ id: { $ne: req.body.userId } })
+        .find({ id: { $ne: req.params.userId } })
         .toArray()
         .then(otherUsers => res.json(otherUsers))
     })

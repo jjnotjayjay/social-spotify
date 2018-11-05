@@ -31,10 +31,9 @@ export default class UserList extends React.Component {
   componentDidMount() {
     const { userId } = this.props
 
-    fetch('/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId })
+    fetch('/users/' + userId, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
     })
       .then(res => res.json())
       .then(res => {
