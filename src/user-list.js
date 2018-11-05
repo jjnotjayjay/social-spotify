@@ -20,17 +20,21 @@ export default class UserList extends React.Component {
     this.state = {
       users: [],
       confirmShareDisplayed: false,
-      recipientOfShare: null
+      recipientUserName: null,
+      recipientUserId: null
     }
     this.displayConfirmShare = this.displayConfirmShare.bind(this)
     this.hideConfirmShare = this.hideConfirmShare.bind(this)
+    this.storeShare = this.storeShare.bind(this)
   }
 
   componentDidMount() {
+    const { userId } = this.props
+
     fetch('/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId: this.props.userId })
+      body: JSON.stringify({ userId })
     })
       .then(res => res.json())
       .then(res => {
@@ -38,17 +42,29 @@ export default class UserList extends React.Component {
       })
   }
 
-  displayConfirmShare(user) {
+  displayConfirmShare(userName, userId) {
     this.setState({
       confirmShareDisplayed: true,
-      recipientOfShare: user
+      recipientUserName: userName,
+      recipientUserId: userId
     })
   }
 
   hideConfirmShare() {
     this.setState({
       confirmShareDisplayed: false,
-      recipientOfShare: null
+      recipientUserName: null,
+      recipientUserId: null
+    })
+  }
+
+  storeShare() {
+    const { userId: sendingUserId, selectedPlaylistId: playlistId } = this.props
+    const { recipientUserId } = this.state
+    fetch('/shares', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sendingUserId, recipientUserId, playlistId })
     })
   }
 
@@ -56,10 +72,10 @@ export default class UserList extends React.Component {
     return (
       <OpaqueList>
         {this.state.confirmShareDisplayed &&
-          <ConfirmShare hideConfirmShare={this.hideConfirmShare} selectedPlaylistName={this.props.selectedPlaylistName} recipientOfShare={this.state.recipientOfShare}/>}
+          <ConfirmShare hideConfirmShare={this.hideConfirmShare} selectedPlaylistName={this.props.selectedPlaylistName} recipientUserName={this.state.recipientUserName} storeShare={this.storeShare} />}
         {this.state.users.map(user => {
           return (
-            <ListItem key={user.id} onClick={() => this.displayConfirmShare(user.displayName)}>
+            <ListItem key={user.id} onClick={() => this.displayConfirmShare(user.displayName, user.id)}>
               <ListItemAvatar>
                 <UserAvatar userImage={user.image} />
               </ListItemAvatar>

@@ -75,7 +75,7 @@ class App extends React.Component {
         return (
           <div>
             <PageHeader view={this.state.view} userImage={this.state.userImage} updateView={this.updateView} />
-            <UserList userId={this.state.userId} selectedPlaylistName={this.state.selectedPlaylistName} />
+            <UserList userId={this.state.userId} selectedPlaylistName={this.state.selectedPlaylistName} selectedPlaylistId={this.state.selectedPlaylistId} />
           </div>
         )
     }
