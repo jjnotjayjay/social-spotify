@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import UserAvatar from './avatar.js'
 import ListItemText from '@material-ui/core/ListItemText'
+import ConfirmShare from './confirm-share.js'
 import { withStyles } from '@material-ui/core/styles'
 
 const UserListText = withStyles({
@@ -17,8 +18,12 @@ export default class UserList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      users: []
+      users: [],
+      confirmShareDisplayed: false,
+      recipientOfShare: null
     }
+    this.displayConfirmShare = this.displayConfirmShare.bind(this)
+    this.hideConfirmShare = this.hideConfirmShare.bind(this)
   }
 
   componentDidMount() {
@@ -33,12 +38,28 @@ export default class UserList extends React.Component {
       })
   }
 
+  displayConfirmShare(user) {
+    this.setState({
+      confirmShareDisplayed: true,
+      recipientOfShare: user
+    })
+  }
+
+  hideConfirmShare() {
+    this.setState({
+      confirmShareDisplayed: false,
+      recipientOfShare: null
+    })
+  }
+
   render() {
     return (
       <OpaqueList>
+        {this.state.confirmShareDisplayed &&
+          <ConfirmShare hideConfirmShare={this.hideConfirmShare} selectedPlaylist={this.props.selectedPlaylist} recipientOfShare={this.state.recipientOfShare}/>}
         {this.state.users.map(user => {
           return (
-            <ListItem key={user.id}>
+            <ListItem key={user.id} onClick={() => this.displayConfirmShare(user.displayName)}>
               <ListItemAvatar>
                 <UserAvatar userImage={user.image} />
               </ListItemAvatar>
