@@ -124,6 +124,24 @@ app.post('/ratings', (req, res) => {
     })
 })
 
+app.post('/shares', (req, res) => {
+  const { sendingUserId, recipientUserId, playlistId } = req.body
+  const currentTime = Date.now()
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('shares')
+        .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, recipientUserId, playlistId, currentTime }, { upsert: true, returnOriginal: false })
+        .then(result => res.json(result.value))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 app.post('/songs', (req, res) => {
   requestPromise(req.body.songDataRequest)
     .then(playlistData => {
