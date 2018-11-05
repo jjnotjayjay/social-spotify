@@ -1,5 +1,5 @@
 import React from 'react'
-import List from '@material-ui/core/List'
+import OpaqueList from './opaque-list.js'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
@@ -7,14 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText'
 import StarRating from './star-rating.js'
 import { withStyles } from '@material-ui/core/styles'
 import { SPOTIFY_API } from './constants.js'
-
-const OpaqueList = withStyles({
-  root: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    maxWidth: '600px',
-    margin: 'auto'
-  }
-})(List)
 
 const SongText = withStyles({
   root: {
@@ -40,11 +32,11 @@ export default class Songs extends React.Component {
 
   componentDidMount() {
     const req = {
-      playlistId: this.props.selectedPlaylist,
+      playlistId: this.props.selectedPlaylistId,
       songDataRequest: {
         url: SPOTIFY_API +
           'playlists/' +
-          this.props.selectedPlaylist +
+          this.props.selectedPlaylistId +
           '/tracks',
         headers: { Authorization: 'Bearer ' + this.props.accessToken },
         json: true
@@ -65,7 +57,7 @@ export default class Songs extends React.Component {
   }
 
   storeRating(rating, songId) {
-    const { userId, selectedPlaylist: playlistId } = this.props
+    const { userId, selectedPlaylistId: playlistId } = this.props
     fetch('/ratings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

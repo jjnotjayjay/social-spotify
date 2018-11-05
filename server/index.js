@@ -58,7 +58,7 @@ app.get('/callback', (req, res) => {
           const userData = {
             displayName: userDataResponse.display_name,
             email,
-            image: userDataResponse.images[0].url,
+            image: (userDataResponse.images[0] ? userDataResponse.images[0].url : null),
             id,
             accessToken,
             refreshToken
@@ -90,6 +90,23 @@ app.get('/callback', (req, res) => {
 
 app.use(bodyParser.json())
 
+app.get('/users/:userId', (req, res) => {
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('users')
+        .find({ id: { $ne: req.params.userId } })
+        .toArray()
+        .then(otherUsers => res.json(otherUsers))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 app.post('/ratings', (req, res) => {
   const { userId, playlistId, songId, rating } = req.body
   MongoClient
@@ -99,6 +116,24 @@ app.post('/ratings', (req, res) => {
         .db()
         .collection('ratings')
         .findOneAndReplace({ userId, playlistId, songId }, { userId, playlistId, songId, rating }, { upsert: true, returnOriginal: false })
+        .then(result => res.json(result.value))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+app.post('/shares', (req, res) => {
+  const { sendingUserId, recipientUserId, playlistId } = req.body
+  const currentTime = Date.now()
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('shares')
+        .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, recipientUserId, playlistId, currentTime }, { upsert: true, returnOriginal: false })
         .then(result => res.json(result.value))
     })
     .catch(err => {
