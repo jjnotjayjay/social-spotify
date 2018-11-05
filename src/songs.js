@@ -1,5 +1,5 @@
 import React from 'react'
-import List from '@material-ui/core/List'
+import OpaqueList from './opaque-list.js'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
@@ -7,14 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText'
 import StarRating from './star-rating.js'
 import { withStyles } from '@material-ui/core/styles'
 import { SPOTIFY_API } from './constants.js'
-
-const OpaqueList = withStyles({
-  root: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    maxWidth: '600px',
-    margin: 'auto'
-  }
-})(List)
 
 const SongText = withStyles({
   root: {
