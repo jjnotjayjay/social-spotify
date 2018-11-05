@@ -66,6 +66,7 @@ export default class UserList extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sendingUserId, recipientUserId, playlistId })
     })
+    window.setTimeout(() => this.props.updateView('playlist'), 1500)
   }
 
   render() {
