@@ -31,7 +31,7 @@ export default function PageHeader(props) {
     <div style={{ overflow: 'hidden' }}>
       {props.view === 'songs' && <BackButton onClick={props.returnToPlaylists} />}
       {props.view === 'users' && <BackButton onClick={() => props.updateView('songs')} />}
-      <UserAvatar userImage={props.userImage} />
+      <UserAvatar classes='float-right-margin' userImage={props.userImage} />
       {props.view === 'songs' && <ShareButton onClick={() => props.updateView('users')} viewBox={'-3 -4 32 32'}/>}
     </div>
   )

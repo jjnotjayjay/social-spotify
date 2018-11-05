@@ -28,3 +28,8 @@ body {
 .align-center {
   text-align: center;
 }
+
+.float-right-margin {
+  margin: 2vh;
+  float: right;
+}

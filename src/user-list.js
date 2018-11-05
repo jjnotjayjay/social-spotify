@@ -4,6 +4,14 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import UserAvatar from './avatar.js'
 import ListItemText from '@material-ui/core/ListItemText'
+import { withStyles } from '@material-ui/core/styles'
+
+const UserListText = withStyles({
+  primary: {
+    fontSize: '0.85rem',
+    lineHeight: '44px'
+  }
+})(ListItemText)
 
 export default class UserList extends React.Component {
   constructor(props) {
@@ -34,7 +42,7 @@ export default class UserList extends React.Component {
               <ListItemAvatar>
                 <UserAvatar userImage={user.image} />
               </ListItemAvatar>
-              <ListItemText primary={user.displayName} />
+              <UserListText primary={user.displayName} />
             </ListItem>
           )
         })}
