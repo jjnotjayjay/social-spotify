@@ -5,7 +5,7 @@ export default function ConfirmShare(props) {
   return (
     <Modal open={true} onClose={props.hideConfirmShare}>
       <div className='centered confirm-share'>
-        <p>{props.recipientOfShare} {props.selectedPlaylist}</p>
+        <p>{props.recipientOfShare} {props.selectedPlaylistName}</p>
       </div>
     </Modal>
   )

@@ -32,11 +32,11 @@ export default class Songs extends React.Component {
 
   componentDidMount() {
     const req = {
-      playlistId: this.props.selectedPlaylist,
+      playlistId: this.props.selectedPlaylistId,
       songDataRequest: {
         url: SPOTIFY_API +
           'playlists/' +
-          this.props.selectedPlaylist +
+          this.props.selectedPlaylistId +
           '/tracks',
         headers: { Authorization: 'Bearer ' + this.props.accessToken },
         json: true
@@ -57,7 +57,7 @@ export default class Songs extends React.Component {
   }
 
   storeRating(rating, songId) {
-    const { userId, selectedPlaylist: playlistId } = this.props
+    const { userId, selectedPlaylistId: playlistId } = this.props
     fetch('/ratings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
