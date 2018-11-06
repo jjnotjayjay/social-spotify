@@ -58,29 +58,32 @@ class App extends React.Component {
     })
   }
 
-  renderView(view) {
-    switch (view) {
+  renderView(newView) {
+    const { view, userImage, userId, unseenPlaylists, accessToken, selectedPlaylistName, selectedPlaylistId } = this.state
+    const { updateSelectedPlaylist, returnToPlaylists, updateView } = this
+
+    switch (newView) {
       case 'login':
         return <Login />
       case 'playlist':
         return (
           <div>
-            <PageHeader userImage={this.state.userImage} unseenPlaylists={this.state.unseenPlaylists}/>
-            <Playlists accessToken={this.state.accessToken} updateSelected={this.updateSelectedPlaylist} />
+            <PageHeader userImage={userImage} unseenPlaylists={unseenPlaylists}/>
+            <Playlists accessToken={accessToken} updateSelected={updateSelectedPlaylist} />
           </div>
         )
       case 'songs':
         return (
           <div>
-            <PageHeader view={this.state.view} userImage={this.state.userImage} returnToPlaylists={this.returnToPlaylists} updateView={this.updateView} unseenPlaylists={this.state.unseenPlaylists} />
-            <Songs accessToken={this.state.accessToken} userId={this.state.userId} selectedPlaylistId={this.state.selectedPlaylistId} />
+            <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <Songs accessToken={accessToken} userId={userId} selectedPlaylistId={selectedPlaylistId} />
           </div>
         )
       case 'users':
         return (
           <div>
-            <PageHeader view={this.state.view} userImage={this.state.userImage} updateView={this.updateView} unseenPlaylists={this.state.unseenPlaylists} />
-            <UserList userId={this.state.userId} selectedPlaylistName={this.state.selectedPlaylistName} selectedPlaylistId={this.state.selectedPlaylistId} updateView={this.updateView} />
+            <PageHeader view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <UserList userId={userId} selectedPlaylistName={selectedPlaylistName} selectedPlaylistId={selectedPlaylistId} updateView={updateView} />
           </div>
         )
     }
