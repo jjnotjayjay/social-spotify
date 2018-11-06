@@ -5,6 +5,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import StarRating from './star-rating.js'
+import MusicNote from '@material-ui/icons/MusicNote'
 import { withStyles } from '@material-ui/core/styles'
 import { SPOTIFY_API } from './constants.js'
 
@@ -20,6 +21,15 @@ const SongText = withStyles({
     fontSize: '0.7rem'
   }
 })(ListItemText)
+
+const RoundNote = withStyles({
+  root: {
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%'
+  }
+})(MusicNote)
 
 export default class Songs extends React.Component {
   constructor(props) {
@@ -74,7 +84,7 @@ export default class Songs extends React.Component {
             <div key={song.track.id}>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar src={song.track.album.images[0].url} />
+                  {song.track.album && song.track.album.images ? <Avatar src={song.track.album.images[0].url} /> : <RoundNote />}
                 </ListItemAvatar>
                 <SongText primary={song.track.name} secondary={song.track.artists[0].name} />
                 <StarRating storeRating={this.storeRating} songId={song.track.id} currentRating={song.track.rating} />
