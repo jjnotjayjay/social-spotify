@@ -84,9 +84,13 @@ export default class Songs extends React.Component {
             <div key={song.track.id}>
               <ListItem>
                 <ListItemAvatar>
-                  {song.track.album && song.track.album.images ? <Avatar src={song.track.album.images[0].url} /> : <RoundNote />}
+                  {song.track.album
+                    ? <Avatar src={song.track.album.images[0].url} />
+                    : <RoundNote />}
                 </ListItemAvatar>
-                <SongText primary={song.track.name} secondary={song.track.artists[0].name} />
+                {song.track.artists
+                  ? <SongText primary={song.track.name} secondary={song.track.artists[0].name} />
+                  : <SongText primary={song.track.name} />}
                 <StarRating storeRating={this.storeRating} songId={song.track.id} currentRating={song.track.rating} />
               </ListItem>
             </div>
