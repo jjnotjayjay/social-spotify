@@ -133,7 +133,7 @@ app.post('/shares', (req, res) => {
       client
         .db()
         .collection('shares')
-        .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, recipientUserId, playlistId, currentTime }, { upsert: true, returnOriginal: false })
+        .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, recipientUserId, playlistId, currentTime, seen: false }, { upsert: true, returnOriginal: false })
         .then(result => res.json(result.value))
     })
     .catch(err => {
