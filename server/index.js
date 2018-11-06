@@ -124,6 +124,22 @@ app.post('/ratings', (req, res) => {
     })
 })
 
+app.get('/shares/:userId/count', (req, res) => {
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('shares')
+        .countDocuments({ recipientUserId: req.params.userId, seen: false })
+        .then(count => res.json(count))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 app.post('/shares', (req, res) => {
   const { sendingUserId, recipientUserId, playlistId } = req.body
   const currentTime = Date.now()
