@@ -16,7 +16,8 @@ class App extends React.Component {
       userImage: hashParser(window.location.hash)[1].image || '',
       userId: hashParser(window.location.hash)[1].id || '',
       selectedPlaylistId: null,
-      selectedPlaylistName: null
+      selectedPlaylistName: null,
+      unseenPlaylists: null
     }
     this.updateSelectedPlaylist = this.updateSelectedPlaylist.bind(this)
     this.returnToPlaylists = this.returnToPlaylists.bind(this)
@@ -29,6 +30,10 @@ class App extends React.Component {
         view: hashParser(window.location.hash)[0]
       })
     })
+
+    fetch('/shares/' + this.state.userId + '/count')
+      .then(res => res.json())
+      .then(res => this.setState({ unseenPlaylists: res }))
   }
 
   updateSelectedPlaylist(playlistId, playlistName) {
