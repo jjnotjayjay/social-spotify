@@ -65,21 +65,21 @@ class App extends React.Component {
       case 'playlist':
         return (
           <div>
-            <PageHeader userImage={this.state.userImage} />
+            <PageHeader userImage={this.state.userImage} unseenPlaylists={this.state.unseenPlaylists}/>
             <Playlists accessToken={this.state.accessToken} updateSelected={this.updateSelectedPlaylist} />
           </div>
         )
       case 'songs':
         return (
           <div>
-            <PageHeader view={this.state.view} userImage={this.state.userImage} returnToPlaylists={this.returnToPlaylists} updateView={this.updateView} />
+            <PageHeader view={this.state.view} userImage={this.state.userImage} returnToPlaylists={this.returnToPlaylists} updateView={this.updateView} unseenPlaylists={this.state.unseenPlaylists} />
             <Songs accessToken={this.state.accessToken} userId={this.state.userId} selectedPlaylistId={this.state.selectedPlaylistId} />
           </div>
         )
       case 'users':
         return (
           <div>
-            <PageHeader view={this.state.view} userImage={this.state.userImage} updateView={this.updateView} />
+            <PageHeader view={this.state.view} userImage={this.state.userImage} updateView={this.updateView} unseenPlaylists={this.state.unseenPlaylists} />
             <UserList userId={this.state.userId} selectedPlaylistName={this.state.selectedPlaylistName} selectedPlaylistId={this.state.selectedPlaylistId} updateView={this.updateView} />
           </div>
         )
