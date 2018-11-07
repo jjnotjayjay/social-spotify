@@ -77,7 +77,8 @@ app.get('/callback', (req, res) => {
                 accessToken,
                 refreshToken,
                 image: userData.image,
-                id: userData.id
+                id: userData.id,
+                displayName: userData.displayName
               }))
             })
         })
@@ -158,7 +159,7 @@ app.get('/shares/:userId/count', (req, res) => {
 })
 
 app.post('/shares', (req, res) => {
-  const { sendingUserId, recipientUserId, playlistId } = req.body
+  const { sendingUserId, sendingUserName, recipientUserId, playlistId, playlistName } = req.body
   const currentTime = Date.now()
   MongoClient
     .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
@@ -166,7 +167,7 @@ app.post('/shares', (req, res) => {
       client
         .db()
         .collection('shares')
-        .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, recipientUserId, playlistId, currentTime, seen: false }, { upsert: true, returnOriginal: false })
+        .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, sendingUserName, recipientUserId, playlistId, playlistName, currentTime, seen: false }, { upsert: true, returnOriginal: false })
         .then(result => res.json(result.value))
     })
     .catch(err => {

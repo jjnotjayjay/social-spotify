@@ -55,12 +55,12 @@ export default class UserList extends React.Component {
   }
 
   storeShare() {
-    const { userId: sendingUserId, selectedPlaylistId: playlistId } = this.props
+    const { userId: sendingUserId, userDisplayName: sendingUserName, selectedPlaylistId: playlistId, selectedPlaylistName: playlistName } = this.props
     const { recipientUserId } = this.state
     fetch('/shares', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sendingUserId, recipientUserId, playlistId })
+      body: JSON.stringify({ sendingUserId, sendingUserName, recipientUserId, playlistId, playlistName })
     })
     window.setTimeout(() => this.props.updateView('playlist'), 1500)
   }

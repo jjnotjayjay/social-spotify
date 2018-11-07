@@ -16,6 +16,7 @@ class App extends React.Component {
       accessToken: hashParser(window.location.hash)[1].accessToken || '',
       userImage: hashParser(window.location.hash)[1].image || '',
       userId: hashParser(window.location.hash)[1].id || '',
+      userDisplayName: hashParser(window.location.hash)[1].displayName || '',
       selectedPlaylistId: null,
       selectedPlaylistName: null,
       unseenPlaylists: null
@@ -60,7 +61,7 @@ class App extends React.Component {
   }
 
   renderView(newView) {
-    const { view, userImage, userId, unseenPlaylists, accessToken, selectedPlaylistName, selectedPlaylistId } = this.state
+    const { view, userImage, userId, userDisplayName, unseenPlaylists, accessToken, selectedPlaylistId, selectedPlaylistName } = this.state
     const { updateSelectedPlaylist, returnToPlaylists, updateView } = this
 
     switch (newView) {
@@ -84,7 +85,7 @@ class App extends React.Component {
         return (
           <div>
             <PageHeader view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
-            <UserList userId={userId} selectedPlaylistName={selectedPlaylistName} selectedPlaylistId={selectedPlaylistId} updateView={updateView} />
+            <UserList userId={userId} userDisplayName={userDisplayName} selectedPlaylistId={selectedPlaylistId} selectedPlaylistName={selectedPlaylistName} updateView={updateView} />
           </div>
         )
       case 'shares':
