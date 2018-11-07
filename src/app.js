@@ -5,6 +5,7 @@ import PageHeader from './page-header.js'
 import Playlists from './playlists.js'
 import Songs from './songs.js'
 import UserList from './user-list.js'
+import Shares from './shares.js'
 import hashParser from './hash-parser.js'
 
 class App extends React.Component {
@@ -68,7 +69,7 @@ class App extends React.Component {
       case 'playlist':
         return (
           <div>
-            <PageHeader userImage={userImage} unseenPlaylists={unseenPlaylists}/>
+            <PageHeader userImage={userImage} unseenPlaylists={unseenPlaylists} updateView={updateView} />
             <Playlists accessToken={accessToken} updateSelected={updateSelectedPlaylist} />
           </div>
         )
@@ -84,6 +85,13 @@ class App extends React.Component {
           <div>
             <PageHeader view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
             <UserList userId={userId} selectedPlaylistName={selectedPlaylistName} selectedPlaylistId={selectedPlaylistId} updateView={updateView} />
+          </div>
+        )
+      case 'shares':
+        return (
+          <div>
+            <PageHeader view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <Shares />
           </div>
         )
     }
