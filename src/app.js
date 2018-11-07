@@ -90,7 +90,7 @@ class App extends React.Component {
       case 'shares':
         return (
           <div>
-            <PageHeader view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} unseenPlaylists={unseenPlaylists} />
             <Shares />
           </div>
         )
