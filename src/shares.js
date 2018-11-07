@@ -8,6 +8,12 @@ export default class Shares extends React.Component {
     }
   }
 
+  componentDidMount() {
+    fetch('/shares/' + this.props.userId)
+      .then(res => res.json())
+      .then(res => this.setState({ shares: res }))
+  }
+
   render() {
     return (
       <div>Shares</div>
