@@ -23,7 +23,7 @@ export default class Shares extends React.Component {
       <OpaqueList>
         {shares.length > 0 && shares.map(share => {
           const date = new Date(share.currentTime).toString().split(' ')
-          const formattedDate = date.slice(0, 3).join(' ')
+          const formattedDate = date[0] + ', ' + date[1] + ' ' + date[2]
           return (
             <ListItem key={share.playlistId}>
               <ListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />

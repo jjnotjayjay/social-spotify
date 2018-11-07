@@ -45,3 +45,13 @@ body {
   margin-top: 0.92rem;
   text-shadow: 1px 1px 12px whitesmoke;
 }
+
+.share-date {
+  font-family: 'Roboto', sans-serif;
+  bottom: calc(12px + 0.1rem);
+  position: absolute;
+  right: 20px;
+  color: rgba(0, 0, 0, 0.74);
+  font-style: italic;
+  font-size: 0.85rem;
+}
