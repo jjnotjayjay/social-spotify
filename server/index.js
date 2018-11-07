@@ -124,6 +124,23 @@ app.post('/ratings', (req, res) => {
     })
 })
 
+app.get('/shares/:userId', (req, res) => {
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('shares')
+        .find({ recipientUserId: req.params.userId })
+        .toArray()
+        .then(receivedPlaylists => res.json(receivedPlaylists))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 app.get('/shares/:userId/count', (req, res) => {
   MongoClient
     .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
