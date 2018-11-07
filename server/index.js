@@ -133,6 +133,7 @@ app.get('/shares/:userId', (req, res) => {
         .db()
         .collection('shares')
         .find({ recipientUserId: req.params.userId })
+        .sort({ currentTime: -1 })
         .toArray()
         .then(receivedPlaylists => res.json(receivedPlaylists))
     })
