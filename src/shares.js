@@ -2,6 +2,16 @@ import React from 'react'
 import OpaqueList from './opaque-list.js'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import { withStyles } from '@material-ui/core/styles'
+
+const BoldListItemText = withStyles({
+  primary: {
+    fontWeight: 'bold'
+  },
+  secondary: {
+    fontWeight: 'bold'
+  }
+})(ListItemText)
 
 export default class Shares extends React.Component {
   constructor(props) {
@@ -26,8 +36,10 @@ export default class Shares extends React.Component {
           const formattedDate = date[0] + ', ' + date[1] + ' ' + date[2]
           return (
             <ListItem key={share.playlistId}>
-              <ListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />
-              <span className="share-date">shared {formattedDate}</span>
+              {!share.seen
+                ? <BoldListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />
+                : <ListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />}
+              <span className={!share.seen ? 'share-date bold' : 'share-date'}>shared {formattedDate}</span>
             </ListItem>
           )
         })}
