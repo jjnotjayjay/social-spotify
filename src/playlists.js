@@ -44,7 +44,7 @@ export default class Playlists extends React.Component {
   render() {
     const { playlists } = this.state
     return (
-      <List>
+      <List style={{ paddingTop: '0' }}>
         {playlists.length > 0 && playlists.map(playlist => {
           return (
             <div key={playlist.id}>
