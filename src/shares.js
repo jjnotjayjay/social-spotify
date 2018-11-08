@@ -2,6 +2,7 @@ import React from 'react'
 import OpaqueList from './opaque-list.js'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import ConfirmFollow from './confirm-follow.js'
 import { withStyles } from '@material-ui/core/styles'
 
 const BoldListItemText = withStyles({
@@ -17,14 +18,35 @@ export default class Shares extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      shares: []
+      shares: [],
+      confirmFollowDisplayed: false,
+      playlistName: null,
+      sendingUserName: null
     }
+    this.displayConfirmFollow = this.displayConfirmFollow.bind(this)
+    this.hideConfirmFollow = this.hideConfirmFollow.bind(this)
   }
 
   componentDidMount() {
     fetch('/shares/' + this.props.userId)
       .then(res => res.json())
       .then(res => this.setState({ shares: res }))
+  }
+
+  displayConfirmFollow(playlist, userName) {
+    this.setState({
+      confirmFollowDisplayed: true,
+      playlistName: playlist,
+      sendingUserName: userName
+    })
+  }
+
+  hideConfirmFollow() {
+    this.setState({
+      confirmFollowDisplayed: false,
+      playlistName: null,
+      sendingUserName: null
+    })
   }
 
   render() {
@@ -35,7 +57,7 @@ export default class Shares extends React.Component {
           const date = new Date(share.currentTime).toString().split(' ')
           const formattedDate = date[0] + ', ' + date[1] + ' ' + date[2]
           return (
-            <ListItem key={share.playlistId}>
+            <ListItem key={share.playlistId} onClick={() => this.displayConfirmFollow(share.playlistName, share.sendingUserName)}>
               {!share.seen
                 ? <BoldListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />
                 : <ListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />}
@@ -43,6 +65,8 @@ export default class Shares extends React.Component {
             </ListItem>
           )
         })}
+        {this.state.confirmFollowDisplayed &&
+          <ConfirmFollow playlistName={this.state.playlistName} sendingUserName={this.state.sendingUserName} hideConfirmFollow={this.hideConfirmFollow}/>}
         {shares.length === 0 &&
           <ListItem>
             <ListItemText primary="No playlists have been shared with you." />

@@ -68,8 +68,6 @@ export default class UserList extends React.Component {
   render() {
     return (
       <OpaqueList>
-        {this.state.confirmShareDisplayed &&
-          <ConfirmShare hideConfirmShare={this.hideConfirmShare} selectedPlaylistName={this.props.selectedPlaylistName} recipientUserName={this.state.recipientUserName} storeShare={this.storeShare} />}
         {this.state.users.map(user => {
           return (
             <ListItem key={user.id} onClick={() => this.displayConfirmShare(user.displayName, user.id)}>
@@ -80,6 +78,8 @@ export default class UserList extends React.Component {
             </ListItem>
           )
         })}
+        {this.state.confirmShareDisplayed &&
+          <ConfirmShare hideConfirmShare={this.hideConfirmShare} selectedPlaylistName={this.props.selectedPlaylistName} recipientUserName={this.state.recipientUserName} storeShare={this.storeShare} />}
       </OpaqueList>
     )
   }
