@@ -2,7 +2,8 @@
 
 A tool for friendly music lovers to share, rate, and comment on songs and playlists using the Spotify API.
 
-**[Live Demo](https://social-spotify-jjnotjayjay.herokuapp.com/)** (User: socialspotifyuser@gmail.com Password: password)
+**[Live Demo](https://social-spotify-jjnotjayjay.herokuapp.com/)** 
+(Username: socialspotifyuser@gmail.com Password: password)
 
 ## User authentication with OAuth2.0
 ![webp net-gifmaker](https://user-images.githubusercontent.com/39274776/47970809-25690080-e03f-11e8-9c33-ee9640cf2464.gif)
