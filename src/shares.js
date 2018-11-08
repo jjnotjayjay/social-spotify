@@ -20,11 +20,14 @@ export default class Shares extends React.Component {
     this.state = {
       shares: [],
       confirmFollowDisplayed: false,
+      playlistId: null,
       playlistName: null,
+      sendingUserId: null,
       sendingUserName: null
     }
     this.displayConfirmFollow = this.displayConfirmFollow.bind(this)
     this.hideConfirmFollow = this.hideConfirmFollow.bind(this)
+    this.followPlaylist = this.followPlaylist.bind(this)
   }
 
   componentDidMount() {
@@ -33,11 +36,13 @@ export default class Shares extends React.Component {
       .then(res => this.setState({ shares: res }))
   }
 
-  displayConfirmFollow(playlist, userName) {
+  displayConfirmFollow(share) {
     this.setState({
       confirmFollowDisplayed: true,
-      playlistName: playlist,
-      sendingUserName: userName
+      playlistId: share.playlistId,
+      playlistName: share.playlistName,
+      sendingUserName: share.sendingUserName,
+      sendingUserId: share.sendingUserId
     })
   }
 
@@ -49,6 +54,12 @@ export default class Shares extends React.Component {
     })
   }
 
+  followPlaylist() {
+    const { userId } = this.props
+    const { playlistId, sendingUserId } = this.state
+    fetch('/shares/seen/' + userId + '/' + playlistId + '/' + sendingUserId)
+  }
+
   render() {
     const { shares } = this.state
     return (
@@ -57,7 +68,7 @@ export default class Shares extends React.Component {
           const date = new Date(share.currentTime).toString().split(' ')
           const formattedDate = date[0] + ', ' + date[1] + ' ' + date[2]
           return (
-            <ListItem key={share.playlistId} onClick={() => this.displayConfirmFollow(share.playlistName, share.sendingUserName)}>
+            <ListItem key={share.playlistId} onClick={() => this.displayConfirmFollow(share)}>
               {!share.seen
                 ? <BoldListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />
                 : <ListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />}
@@ -66,7 +77,7 @@ export default class Shares extends React.Component {
           )
         })}
         {this.state.confirmFollowDisplayed &&
-          <ConfirmFollow playlistName={this.state.playlistName} sendingUserName={this.state.sendingUserName} hideConfirmFollow={this.hideConfirmFollow}/>}
+          <ConfirmFollow playlistName={this.state.playlistName} sendingUserName={this.state.sendingUserName} hideConfirmFollow={this.hideConfirmFollow} followPlaylist={this.followPlaylist} />}
         {shares.length === 0 &&
           <ListItem>
             <ListItemText primary="No playlists have been shared with you." />

@@ -12,7 +12,7 @@ export default class ConfirmFollow extends React.Component {
   }
 
   onClick() {
-    // this.props.storeShare()
+    this.props.followPlaylist()
     this.setState({ confirmationMessage: true })
   }
 

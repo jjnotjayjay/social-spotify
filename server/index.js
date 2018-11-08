@@ -159,6 +159,24 @@ app.get('/shares/:userId/count', (req, res) => {
     })
 })
 
+app.get('/shares/seen/:recipientUserId/:playlistId/:sendingUserId', (req, res) => {
+  const { recipientUserId, playlistId, sendingUserId } = req.params
+  console.log(req.params)
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('shares')
+        .findOneAndUpdate({ recipientUserId, playlistId, sendingUserId }, { $set: { seen: true } })
+        .then(() => res.sendStatus(200))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 app.post('/shares', (req, res) => {
   const { sendingUserId, sendingUserName, recipientUserId, playlistId, playlistName } = req.body
   const currentTime = Date.now()
