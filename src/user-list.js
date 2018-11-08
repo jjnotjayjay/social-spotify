@@ -31,10 +31,7 @@ export default class UserList extends React.Component {
   componentDidMount() {
     const { userId } = this.props
 
-    fetch('/users/' + userId, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
+    fetch('/users/' + userId)
       .then(res => res.json())
       .then(res => {
         this.setState({ users: res })
@@ -58,12 +55,12 @@ export default class UserList extends React.Component {
   }
 
   storeShare() {
-    const { userId: sendingUserId, selectedPlaylistId: playlistId } = this.props
+    const { userId: sendingUserId, userDisplayName: sendingUserName, selectedPlaylistId: playlistId, selectedPlaylistName: playlistName } = this.props
     const { recipientUserId } = this.state
     fetch('/shares', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sendingUserId, recipientUserId, playlistId })
+      body: JSON.stringify({ sendingUserId, sendingUserName, recipientUserId, playlistId, playlistName })
     })
     window.setTimeout(() => this.props.updateView('playlist'), 1500)
   }
@@ -71,8 +68,6 @@ export default class UserList extends React.Component {
   render() {
     return (
       <OpaqueList>
-        {this.state.confirmShareDisplayed &&
-          <ConfirmShare hideConfirmShare={this.hideConfirmShare} selectedPlaylistName={this.props.selectedPlaylistName} recipientUserName={this.state.recipientUserName} storeShare={this.storeShare} />}
         {this.state.users.map(user => {
           return (
             <ListItem key={user.id} onClick={() => this.displayConfirmShare(user.displayName, user.id)}>
@@ -83,6 +78,8 @@ export default class UserList extends React.Component {
             </ListItem>
           )
         })}
+        {this.state.confirmShareDisplayed &&
+          <ConfirmShare hideConfirmShare={this.hideConfirmShare} selectedPlaylistName={this.props.selectedPlaylistName} recipientUserName={this.state.recipientUserName} storeShare={this.storeShare} />}
       </OpaqueList>
     )
   }

@@ -77,7 +77,8 @@ app.get('/callback', (req, res) => {
                 accessToken,
                 refreshToken,
                 image: userData.image,
-                id: userData.id
+                id: userData.id,
+                displayName: userData.displayName
               }))
             })
         })
@@ -124,8 +125,59 @@ app.post('/ratings', (req, res) => {
     })
 })
 
+app.get('/shares/:userId', (req, res) => {
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('shares')
+        .find({ recipientUserId: req.params.userId })
+        .sort({ currentTime: -1 })
+        .toArray()
+        .then(receivedPlaylists => res.json(receivedPlaylists))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+app.get('/shares/:userId/count', (req, res) => {
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('shares')
+        .countDocuments({ recipientUserId: req.params.userId, seen: false })
+        .then(count => res.json(count))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+app.get('/shares/seen/:recipientUserId/:playlistId/:sendingUserId', (req, res) => {
+  const { recipientUserId, playlistId, sendingUserId } = req.params
+  MongoClient
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .then(client => {
+      client
+        .db()
+        .collection('shares')
+        .findOneAndUpdate({ recipientUserId, playlistId, sendingUserId }, { $set: { seen: true } })
+        .then(() => res.sendStatus(200))
+    })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 app.post('/shares', (req, res) => {
-  const { sendingUserId, recipientUserId, playlistId } = req.body
+  const { sendingUserId, sendingUserName, recipientUserId, playlistId, playlistName } = req.body
   const currentTime = Date.now()
   MongoClient
     .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
@@ -133,9 +185,27 @@ app.post('/shares', (req, res) => {
       client
         .db()
         .collection('shares')
-        .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, recipientUserId, playlistId, currentTime }, { upsert: true, returnOriginal: false })
+        .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, sendingUserName, recipientUserId, playlistId, playlistName, currentTime, seen: false }, { upsert: true, returnOriginal: false })
         .then(result => res.json(result.value))
     })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+app.put('/shares/follow/:accessToken/:playlistId', (req, res) => {
+  const followPlaylistRequest = {
+    url: 'https://api.spotify.com/v1/playlists/' +
+      req.params.playlistId +
+      '/followers',
+    method: 'PUT',
+    headers: { Authorization: 'Bearer ' + req.params.accessToken },
+    json: true
+  }
+
+  requestPromise(followPlaylistRequest)
+    .then(result => res.json(result))
     .catch(err => {
       console.log(err)
       res.sendStatus(500)
