@@ -21,6 +21,7 @@ class App extends React.Component {
       selectedPlaylistName: null,
       unseenPlaylists: null
     }
+    this.fetchUnseenPlaylists = this.fetchUnseenPlaylists.bind(this)
     this.updateSelectedPlaylist = this.updateSelectedPlaylist.bind(this)
     this.returnToPlaylists = this.returnToPlaylists.bind(this)
     this.updateView = this.updateView.bind(this)
@@ -33,6 +34,10 @@ class App extends React.Component {
       })
     })
 
+    this.fetchUnseenPlaylists()
+  }
+
+  fetchUnseenPlaylists() {
     fetch('/shares/' + this.state.userId + '/count')
       .then(res => res.json())
       .then(res => this.setState({ unseenPlaylists: res }))
@@ -62,7 +67,7 @@ class App extends React.Component {
 
   renderView(newView) {
     const { view, userImage, userId, userDisplayName, unseenPlaylists, accessToken, selectedPlaylistId, selectedPlaylistName } = this.state
-    const { updateSelectedPlaylist, returnToPlaylists, updateView } = this
+    const { fetchUnseenPlaylists, updateSelectedPlaylist, returnToPlaylists, updateView } = this
 
     switch (newView) {
       case 'login':
@@ -92,7 +97,7 @@ class App extends React.Component {
         return (
           <div>
             <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} unseenPlaylists={unseenPlaylists} />
-            <Shares userId={userId} />
+            <Shares userId={userId} fetchUnseenPlaylists={fetchUnseenPlaylists}/>
           </div>
         )
     }
