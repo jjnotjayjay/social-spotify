@@ -96,8 +96,8 @@ class App extends React.Component {
       case 'shares':
         return (
           <div>
-            <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} unseenPlaylists={unseenPlaylists} />
-            <Shares userId={userId} fetchUnseenPlaylists={fetchUnseenPlaylists}/>
+            <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <Shares accessToken={accessToken} userId={userId} fetchUnseenPlaylists={fetchUnseenPlaylists}/>
           </div>
         )
     }
