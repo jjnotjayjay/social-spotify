@@ -13,6 +13,9 @@ A tool for friendly music lovers to share, rate, and comment on songs and playli
 ## Share your rated playlists with other users
 ![spotify-share-playlist](https://user-images.githubusercontent.com/39274776/48020131-f52a6c00-e0e9-11e8-80ca-d03bda46c5b0.gif)
 
+## Add playlists shared by others to your Spotify account
+![get-shared-playlists](https://user-images.githubusercontent.com/39274776/48174254-222e7880-e2bc-11e8-8660-0f306cb3621d.gif)
+
 # Technologies Used
 * React.js
 * Spotify API
