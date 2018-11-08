@@ -99,7 +99,7 @@ class App extends React.Component {
         return (
           <div>
             <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
-            <Shares accessToken={accessToken} userId={userId} fetchUnseenPlaylists={fetchUnseenPlaylists}/>
+            <Shares accessToken={accessToken} userId={userId} fetchUnseenPlaylists={fetchUnseenPlaylists} updateView={updateView} />
           </div>
         )
     }

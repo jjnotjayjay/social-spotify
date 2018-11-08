@@ -62,6 +62,7 @@ export default class Shares extends React.Component {
       method: 'PUT'
     })
     fetchUnseenPlaylists()
+    window.setTimeout(() => this.props.updateView('playlist'), 1500)
   }
 
   render() {
