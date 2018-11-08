@@ -49,7 +49,10 @@ export default function PageHeader(props) {
         ? (<PlaylistCountBadge color='secondary' badgeContent={props.unseenPlaylists} onClick={() => props.updateView('shares')}>
           <UserAvatar classes='float-right-margin' userImage={props.userImage} />
         </PlaylistCountBadge>)
-        : <UserAvatar classes='float-right-margin' userImage={props.userImage} onClick={() => props.updateView('shares')} />}
+        : (<div onClick={() => props.updateView('shares')}>
+          <UserAvatar classes='float-right-margin' userImage={props.userImage} />
+        </div>
+        )}
       {props.view === 'songs' && <ShareButton onClick={() => props.updateView('users')} viewBox={'-3 -4 32 32'}/>}
     </div>
   )
