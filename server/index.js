@@ -161,7 +161,6 @@ app.get('/shares/:userId/count', (req, res) => {
 
 app.get('/shares/seen/:recipientUserId/:playlistId/:sendingUserId', (req, res) => {
   const { recipientUserId, playlistId, sendingUserId } = req.params
-  console.log(req.params)
   MongoClient
     .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
     .then(client => {
@@ -189,6 +188,24 @@ app.post('/shares', (req, res) => {
         .findOneAndReplace({ sendingUserId, recipientUserId, playlistId }, { sendingUserId, sendingUserName, recipientUserId, playlistId, playlistName, currentTime, seen: false }, { upsert: true, returnOriginal: false })
         .then(result => res.json(result.value))
     })
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+app.put('/shares/follow/:accessToken/:playlistId', (req, res) => {
+  const followPlaylistRequest = {
+    url: 'https://api.spotify.com/v1/playlists/' +
+      req.params.playlistId +
+      '/followers',
+    method: 'PUT',
+    headers: { Authorization: 'Bearer ' + req.params.accessToken },
+    json: true
+  }
+
+  requestPromise(followPlaylistRequest)
+    .then(result => res.json(result))
     .catch(err => {
       console.log(err)
       res.sendStatus(500)

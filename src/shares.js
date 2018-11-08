@@ -55,9 +55,12 @@ export default class Shares extends React.Component {
   }
 
   followPlaylist() {
-    const { userId, fetchUnseenPlaylists } = this.props
+    const { accessToken, userId, fetchUnseenPlaylists } = this.props
     const { playlistId, sendingUserId } = this.state
     fetch('/shares/seen/' + userId + '/' + playlistId + '/' + sendingUserId)
+    fetch('/shares/follow/' + accessToken + '/' + playlistId, {
+      method: 'PUT'
+    })
     fetchUnseenPlaylists()
   }
 
