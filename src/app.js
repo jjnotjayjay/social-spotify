@@ -34,7 +34,9 @@ class App extends React.Component {
       })
     })
 
-    this.fetchUnseenPlaylists()
+    if (this.state.view !== 'login') {
+      this.fetchUnseenPlaylists()
+    }
   }
 
   fetchUnseenPlaylists() {
