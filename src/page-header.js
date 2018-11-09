@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 const BackButton = withStyles({
   root: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     width: '40px',
     height: '40px',
     borderRadius: '50%',
@@ -18,7 +18,7 @@ const BackButton = withStyles({
 
 const ShareButton = withStyles({
   root: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     width: '40px',
     height: '40px',
     borderRadius: '50%',
