@@ -12,8 +12,7 @@ const OpaqueListItem = withStyles({
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     width: '86%',
     maxWidth: '600px',
-    margin: 'auto',
-    borderRadius: '1vh'
+    margin: 'auto'
   }
 })(ListItem)
 
