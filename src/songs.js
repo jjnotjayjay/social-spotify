@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import StarRating from './star-rating.js'
 import MusicNote from '@material-ui/icons/MusicNote'
 import { withStyles } from '@material-ui/core/styles'
-import { SPOTIFY_API } from './constants.js'
+import SPOTIFY_API from './constants.js'
 
 const SongText = withStyles({
   root: {
@@ -60,9 +60,7 @@ export default class Songs extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        this.setState({
-          songs: res.items
-        })
+        this.setState({ songs: res.items })
       })
   }
 
@@ -77,6 +75,7 @@ export default class Songs extends React.Component {
 
   render() {
     const { songs } = this.state
+    const { storeRating } = this
     return (
       <OpaqueList>
         {songs && songs.map(song => {
@@ -91,7 +90,7 @@ export default class Songs extends React.Component {
                 {song.track.artists
                   ? <SongText primary={song.track.name} secondary={song.track.artists[0].name} />
                   : <SongText primary={song.track.name} />}
-                <StarRating storeRating={this.storeRating} songId={song.track.id} currentRating={song.track.rating} />
+                <StarRating storeRating={storeRating} songId={song.track.id} currentRating={song.track.rating} />
               </ListItem>
             </div>
           )

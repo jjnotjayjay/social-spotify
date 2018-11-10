@@ -5,15 +5,14 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import { withStyles } from '@material-ui/core/styles'
-import { SPOTIFY_API } from './constants.js'
+import SPOTIFY_API from './constants.js'
 
 const OpaqueListItem = withStyles({
   root: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     width: '86%',
     maxWidth: '600px',
-    margin: 'auto',
-    borderRadius: '1vh'
+    margin: 'auto'
   }
 })(ListItem)
 
@@ -43,12 +42,13 @@ export default class Playlists extends React.Component {
 
   render() {
     const { playlists } = this.state
+    const { updateSelected } = this.props
     return (
-      <List style={{ paddingTop: '0' }}>
+      <List style={{ padding: '0', marginBottom: 'calc(40px + 4vh)' }}>
         {playlists.length > 0 && playlists.map(playlist => {
           return (
             <div key={playlist.id}>
-              <OpaqueListItem onClick={() => this.props.updateSelected(playlist.id, playlist.name)}>
+              <OpaqueListItem onClick={() => updateSelected(playlist.id, playlist.name)}>
                 <ListItemText primary={playlist.name} secondary={'by ' + playlist.owner.display_name}/>
               </OpaqueListItem>
               <Divider style={{ visibility: 'hidden' }}/>

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Login from './login.js'
-import PageHeader from './page-header.js'
+import NavBar from './nav-bar.js'
 import Playlists from './playlists.js'
 import Songs from './songs.js'
 import UserList from './user-list.js'
@@ -14,11 +14,15 @@ class App extends React.Component {
     this.state = {
       view: hashParser(window.location.hash)[0] || 'login',
       accessToken: hashParser(window.location.hash)[1].accessToken || '',
-      userImage: hashParser(window.location.hash)[1].image || '',
-      userId: hashParser(window.location.hash)[1].id || '',
-      userDisplayName: hashParser(window.location.hash)[1].displayName || '',
-      selectedPlaylistId: null,
-      selectedPlaylistName: null,
+      user: {
+        image: hashParser(window.location.hash)[1].image || '',
+        id: hashParser(window.location.hash)[1].id || '',
+        displayName: hashParser(window.location.hash)[1].displayName || ''
+      },
+      selectedPlaylist: {
+        id: null,
+        name: null
+      },
       unseenPlaylists: null
     }
     this.fetchUnseenPlaylists = this.fetchUnseenPlaylists.bind(this)
@@ -29,9 +33,7 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('hashchange', () => {
-      this.setState({
-        view: hashParser(window.location.hash)[0]
-      })
+      this.setState({ view: hashParser(window.location.hash)[0] })
     })
 
     if (this.state.view !== 'login') {
@@ -40,35 +42,37 @@ class App extends React.Component {
   }
 
   fetchUnseenPlaylists() {
-    fetch('/shares/' + this.state.userId + '/count')
+    fetch('/shares/' + this.state.user.id + '/count')
       .then(res => res.json())
       .then(res => this.setState({ unseenPlaylists: res }))
   }
 
   updateSelectedPlaylist(playlistId, playlistName) {
     this.setState({
-      selectedPlaylistId: playlistId,
-      selectedPlaylistName: playlistName,
+      selectedPlaylist: {
+        id: playlistId,
+        name: playlistName
+      },
       view: 'songs'
     })
   }
 
   returnToPlaylists() {
     this.setState({
-      selectedPlaylistId: null,
-      selectedPlaylistName: null,
+      selectedPlaylist: {
+        id: null,
+        name: null
+      },
       view: 'playlist'
     })
   }
 
   updateView(view) {
-    this.setState({
-      view: view
-    })
+    this.setState({ view })
   }
 
   renderView(newView) {
-    const { view, userImage, userId, userDisplayName, unseenPlaylists, accessToken, selectedPlaylistId, selectedPlaylistName } = this.state
+    const { view, user, unseenPlaylists, accessToken, selectedPlaylist } = this.state
     const { fetchUnseenPlaylists, updateSelectedPlaylist, returnToPlaylists, updateView } = this
 
     switch (newView) {
@@ -77,29 +81,29 @@ class App extends React.Component {
       case 'playlist':
         return (
           <div>
-            <PageHeader userImage={userImage} unseenPlaylists={unseenPlaylists} updateView={updateView} />
+            <NavBar userImage={user.image} unseenPlaylists={unseenPlaylists} updateView={updateView} />
             <Playlists accessToken={accessToken} updateSelected={updateSelectedPlaylist} />
           </div>
         )
       case 'songs':
         return (
           <div>
-            <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
-            <Songs accessToken={accessToken} userId={userId} selectedPlaylistId={selectedPlaylistId} />
+            <NavBar view={view} userImage={user.image} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <Songs accessToken={accessToken} userId={user.id} selectedPlaylistId={selectedPlaylist.id} />
           </div>
         )
       case 'users':
         return (
           <div>
-            <PageHeader view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
-            <UserList userId={userId} userDisplayName={userDisplayName} selectedPlaylistId={selectedPlaylistId} selectedPlaylistName={selectedPlaylistName} updateView={updateView} />
+            <NavBar view={view} userImage={user.image} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <UserList userId={user.id} userDisplayName={user.displayName} selectedPlaylistId={selectedPlaylist.id} selectedPlaylistName={selectedPlaylist.name} updateView={updateView} />
           </div>
         )
       case 'shares':
         return (
           <div>
-            <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
-            <Shares accessToken={accessToken} userId={userId} fetchUnseenPlaylists={fetchUnseenPlaylists} updateView={updateView} />
+            <NavBar view={view} userImage={user.image} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <Shares accessToken={accessToken} userId={user.id} fetchUnseenPlaylists={fetchUnseenPlaylists} updateView={updateView} />
           </div>
         )
     }

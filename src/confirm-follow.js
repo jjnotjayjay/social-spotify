@@ -17,13 +17,16 @@ export default class ConfirmFollow extends React.Component {
   }
 
   render() {
+    const { hideConfirmFollow, playlistName, sendingUserName } = this.props
+    const { confirmationMessage } = this.state
+    const { onClick } = this
     return (
-      <Modal open={true} onClose={this.props.hideConfirmFollow}>
-        <div className='centered confirm-share'>
-          <p>Are you sure you want to follow <b>{this.props.playlistName}</b> from <b>{this.props.sendingUserName}</b>?</p>
+      <Modal open={true} onClose={hideConfirmFollow}>
+        <div className='centered confirmation-modal'>
+          <p>Are you sure you want to follow <b>{playlistName}</b> from <b>{sendingUserName}</b>?</p>
           <br />
-          <Button onClick={this.onClick} size="large" color="primary" variant="contained">Confirm</Button>
-          {this.state.confirmationMessage && <p className='share-confirmation'>Playlist followed!</p>}
+          <Button onClick={onClick} size="large" color="primary" variant="contained">Confirm</Button>
+          {confirmationMessage && <p className='share-confirmation'>Playlist followed!</p>}
         </div>
       </Modal>
     )
