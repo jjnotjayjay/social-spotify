@@ -29,8 +29,7 @@ const ShareButton = withStyles({
 
 const PlaylistCountBadge = withStyles({
   root: {
-    display: 'inherit',
-    position: 'inherit'
+    display: 'inherit'
   },
   badge: {
     top: '6px',

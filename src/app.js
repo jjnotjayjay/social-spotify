@@ -42,7 +42,7 @@ class App extends React.Component {
   }
 
   fetchUnseenPlaylists() {
-    fetch('/shares/' + this.state.userId + '/count')
+    fetch('/shares/' + this.state.user.id + '/count')
       .then(res => res.json())
       .then(res => this.setState({ unseenPlaylists: res }))
   }
