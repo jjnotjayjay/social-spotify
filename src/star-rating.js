@@ -23,6 +23,7 @@ export default class StarRating extends React.Component {
     this.state = {
       rating: props.currentRating || 0
     }
+    this.updateRating = this.updateRating.bind(this)
   }
 
   updateRating(rating, songId) {
