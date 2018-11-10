@@ -23,7 +23,7 @@ export default class ConfirmShare extends React.Component {
 
     return (
       <Modal open={true} onClose={hideConfirmShare}>
-        <div className='centered confirm-share'>
+        <div className='centered confirmation-modal'>
           <p>Are you sure you want to share <b>{selectedPlaylistName}</b> with <b>{recipientUserName}</b>?</p>
           <br />
           <Button onClick={onClick} size="large" color="primary" variant="contained">Confirm</Button>

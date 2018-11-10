@@ -22,7 +22,7 @@ export default class ConfirmFollow extends React.Component {
     const { onClick } = this
     return (
       <Modal open={true} onClose={hideConfirmFollow}>
-        <div className='centered confirm-share'>
+        <div className='centered confirmation-modal'>
           <p>Are you sure you want to follow <b>{playlistName}</b> from <b>{sendingUserName}</b>?</p>
           <br />
           <Button onClick={onClick} size="large" color="primary" variant="contained">Confirm</Button>
