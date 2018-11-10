@@ -32,8 +32,8 @@ const PlaylistCountBadge = withStyles({
     display: 'inherit'
   },
   badge: {
-    top: '6px',
-    right: '6px',
+    top: '0.9vh',
+    right: '0.9vh',
     width: '18px',
     height: '18px'
   }
