@@ -17,8 +17,10 @@ class App extends React.Component {
       userImage: hashParser(window.location.hash)[1].image || '',
       userId: hashParser(window.location.hash)[1].id || '',
       userDisplayName: hashParser(window.location.hash)[1].displayName || '',
-      selectedPlaylistId: null,
-      selectedPlaylistName: null,
+      selectedPlaylist: {
+        id: null,
+        name: null
+      },
       unseenPlaylists: null
     }
     this.fetchUnseenPlaylists = this.fetchUnseenPlaylists.bind(this)
@@ -47,16 +49,20 @@ class App extends React.Component {
 
   updateSelectedPlaylist(playlistId, playlistName) {
     this.setState({
-      selectedPlaylistId: playlistId,
-      selectedPlaylistName: playlistName,
+      selectedPlaylist: {
+        id: playlistId,
+        name: playlistName
+      },
       view: 'songs'
     })
   }
 
   returnToPlaylists() {
     this.setState({
-      selectedPlaylistId: null,
-      selectedPlaylistName: null,
+      selectedPlaylist: {
+        id: null,
+        name: null
+      },
       view: 'playlist'
     })
   }
@@ -68,7 +74,7 @@ class App extends React.Component {
   }
 
   renderView(newView) {
-    const { view, userImage, userId, userDisplayName, unseenPlaylists, accessToken, selectedPlaylistId, selectedPlaylistName } = this.state
+    const { view, userImage, userId, userDisplayName, unseenPlaylists, accessToken, selectedPlaylist } = this.state
     const { fetchUnseenPlaylists, updateSelectedPlaylist, returnToPlaylists, updateView } = this
 
     switch (newView) {
@@ -85,14 +91,14 @@ class App extends React.Component {
         return (
           <div>
             <NavBar view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
-            <Songs accessToken={accessToken} userId={userId} selectedPlaylistId={selectedPlaylistId} />
+            <Songs accessToken={accessToken} userId={userId} selectedPlaylistId={selectedPlaylist.id} />
           </div>
         )
       case 'users':
         return (
           <div>
             <NavBar view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
-            <UserList userId={userId} userDisplayName={userDisplayName} selectedPlaylistId={selectedPlaylistId} selectedPlaylistName={selectedPlaylistName} updateView={updateView} />
+            <UserList userId={userId} userDisplayName={userDisplayName} selectedPlaylistId={selectedPlaylist.id} selectedPlaylistName={selectedPlaylist.name} updateView={updateView} />
           </div>
         )
       case 'shares':
