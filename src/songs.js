@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import StarRating from './star-rating.js'
 import MusicNote from '@material-ui/icons/MusicNote'
 import { withStyles } from '@material-ui/core/styles'
-import { SPOTIFY_API } from './constants.js'
+import SPOTIFY_API from './constants.js'
 
 const SongText = withStyles({
   root: {

@@ -5,6 +5,7 @@ const requestPromise = require('request-promise')
 const { MongoClient } = require('mongodb')
 const bodyParser = require('body-parser')
 require('dotenv/config')
+const SPOTIFY_API = require('../src/constants.js')
 
 const clientId = 'ee3918a44251433a87cbc842f68bc29f'
 const clientSecret = process.env.CLIENT_SECRET
@@ -47,7 +48,7 @@ app.get('/callback', (req, res) => {
       const refreshToken = tokenData.refresh_token
 
       const userDataRequest = {
-        url: 'https://api.spotify.com/v1/me',
+        url: SPOTIFY_API + 'me',
         headers: { 'Authorization': 'Bearer ' + accessToken },
         json: true
       }
@@ -196,7 +197,8 @@ app.post('/shares', (req, res) => {
 
 app.put('/shares/follow/:accessToken/:playlistId', (req, res) => {
   const followPlaylistRequest = {
-    url: 'https://api.spotify.com/v1/playlists/' +
+    url: SPOTIFY_API +
+      'playlists/' +
       req.params.playlistId +
       '/followers',
     method: 'PUT',
