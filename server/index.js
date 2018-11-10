@@ -21,7 +21,7 @@ app.get('/login', (req, res) => {
       response_type: 'code',
       client_id: clientId,
       redirect_uri: redirectURI,
-      scope: scope
+      scope
     }))
 })
 
@@ -35,7 +35,7 @@ app.get('/callback', (req, res) => {
     },
     form: {
       grant_type: 'authorization_code',
-      code: code,
+      code,
       redirect_uri: redirectURI
     },
     json: true
