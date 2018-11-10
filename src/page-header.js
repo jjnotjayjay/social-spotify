@@ -42,7 +42,7 @@ const PlaylistCountBadge = withStyles({
 
 export default function PageHeader(props) {
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div className='nav-bar'>
       {(props.view === 'songs' || props.view === 'shares') && <BackButton onClick={props.returnToPlaylists} />}
       {props.view === 'users' && <BackButton onClick={() => props.updateView('songs')} />}
       {props.unseenPlaylists > 0
