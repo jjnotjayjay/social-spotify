@@ -42,6 +42,14 @@ body {
   z-index: 2;
 }
 
+#nav-bar-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1.5vh;
+  max-height: calc(40px + 1vh);
+}
+
 .confirm-share {
   background-color: rgba(255, 255, 255, 0.75);
   padding: 1rem;

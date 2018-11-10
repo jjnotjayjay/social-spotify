@@ -45,6 +45,7 @@ export default function PageHeader(props) {
     <div className='nav-bar'>
       {(props.view === 'songs' || props.view === 'shares') && <BackButton onClick={props.returnToPlaylists} />}
       {props.view === 'users' && <BackButton onClick={() => props.updateView('songs')} />}
+      <img id="nav-bar-logo" src="assets/logo-mini.png"/>
       {props.unseenPlaylists > 0
         ? (<PlaylistCountBadge color='secondary' badgeContent={props.unseenPlaylists} onClick={() => props.updateView('shares')}>
           <UserAvatar classes='float-right-margin' userImage={props.userImage} />
