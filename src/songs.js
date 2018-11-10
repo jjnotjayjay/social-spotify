@@ -60,9 +60,7 @@ export default class Songs extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        this.setState({
-          songs: res.items
-        })
+        this.setState({ songs: res.items })
       })
   }
 

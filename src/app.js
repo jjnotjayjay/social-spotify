@@ -33,9 +33,7 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('hashchange', () => {
-      this.setState({
-        view: hashParser(window.location.hash)[0]
-      })
+      this.setState({ view: hashParser(window.location.hash)[0] })
     })
 
     if (this.state.view !== 'login') {
@@ -70,9 +68,7 @@ class App extends React.Component {
   }
 
   updateView(view) {
-    this.setState({
-      view: view
-    })
+    this.setState({ view })
   }
 
   renderView(newView) {
