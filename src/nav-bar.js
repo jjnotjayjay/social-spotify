@@ -41,20 +41,21 @@ const PlaylistCountBadge = withStyles({
 })(Badge)
 
 export default function NavBar(props) {
+  const { view, returnToPlaylists, updateView, unseenPlaylists, userImage } = props
   return (
     <div className='nav-bar'>
-      {(props.view === 'songs' || props.view === 'shares') && <BackButton onClick={props.returnToPlaylists} />}
-      {props.view === 'users' && <BackButton onClick={() => props.updateView('songs')} />}
+      {(view === 'songs' || view === 'shares') && <BackButton onClick={returnToPlaylists} />}
+      {view === 'users' && <BackButton onClick={() => updateView('songs')} />}
       <img id="nav-bar-logo" src="assets/logo-mini.png"/>
-      {props.unseenPlaylists > 0
-        ? (<PlaylistCountBadge color='secondary' badgeContent={props.unseenPlaylists} onClick={() => props.updateView('shares')}>
-          <UserAvatar classes='float-right-margin' userImage={props.userImage} />
+      {unseenPlaylists > 0
+        ? (<PlaylistCountBadge color='secondary' badgeContent={unseenPlaylists} onClick={() => updateView('shares')}>
+          <UserAvatar classes='float-right-margin' userImage={userImage} />
         </PlaylistCountBadge>)
-        : (<div onClick={() => props.updateView('shares')}>
-          <UserAvatar classes='float-right-margin' userImage={props.userImage} />
+        : (<div onClick={() => updateView('shares')}>
+          <UserAvatar classes='float-right-margin' userImage={userImage} />
         </div>
         )}
-      {props.view === 'songs' && <ShareButton onClick={() => props.updateView('users')} viewBox={'-3 -4 32 32'}/>}
+      {view === 'songs' && <ShareButton onClick={() => updateView('users')} viewBox={'-3 -4 32 32'}/>}
     </div>
   )
 }

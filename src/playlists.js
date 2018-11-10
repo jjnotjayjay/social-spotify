@@ -42,12 +42,13 @@ export default class Playlists extends React.Component {
 
   render() {
     const { playlists } = this.state
+    const { updateSelected } = this.props
     return (
       <List style={{ padding: '0', marginBottom: 'calc(40px + 4vh)' }}>
         {playlists.length > 0 && playlists.map(playlist => {
           return (
             <div key={playlist.id}>
-              <OpaqueListItem onClick={() => this.props.updateSelected(playlist.id, playlist.name)}>
+              <OpaqueListItem onClick={() => updateSelected(playlist.id, playlist.name)}>
                 <ListItemText primary={playlist.name} secondary={'by ' + playlist.owner.display_name}/>
               </OpaqueListItem>
               <Divider style={{ visibility: 'hidden' }}/>
