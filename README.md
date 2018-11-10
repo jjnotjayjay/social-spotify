@@ -5,17 +5,14 @@ A tool for friendly music lovers to share, rate, and comment on songs and playli
 **[Live Demo](https://social-spotify-jjnotjayjay.herokuapp.com/)** 
 (Username: socialspotifyuser@gmail.com Password: password)
 
-## User authentication with OAuth2.0
-![webp net-gifmaker](https://user-images.githubusercontent.com/39274776/47970809-25690080-e03f-11e8-9c33-ee9640cf2464.gif)
-
-## Rate your favorite (or least favorite) songs
-![spotify-rate-songs](https://user-images.githubusercontent.com/39274776/47970855-9f998500-e03f-11e8-8ad1-ffea33d3110d.gif)
+## User authenticates with OAuth2.0 and can then rate songs
+![oauth-rate-songs](https://user-images.githubusercontent.com/39274776/48297858-de2ba700-e466-11e8-9a85-9af008462d12.gif)
 
 ## Share your rated playlists with other users
-![spotify-share-playlist](https://user-images.githubusercontent.com/39274776/48020131-f52a6c00-e0e9-11e8-80ca-d03bda46c5b0.gif)
+![share-playlist](https://user-images.githubusercontent.com/39274776/48297861-e5eb4b80-e466-11e8-8863-7c87da756a8a.gif)
 
 ## Add playlists shared by others to your Spotify account
-![get-shared-playlists](https://user-images.githubusercontent.com/39274776/48174254-222e7880-e2bc-11e8-8660-0f306cb3621d.gif)
+![receive-shared](https://user-images.githubusercontent.com/39274776/48297862-e84da580-e466-11e8-9c79-6de5f23829c6.gif)
 
 # Technologies Used
 * React.js
