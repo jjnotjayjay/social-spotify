@@ -40,7 +40,7 @@ const PlaylistCountBadge = withStyles({
   }
 })(Badge)
 
-export default function PageHeader(props) {
+export default function NavBar(props) {
   return (
     <div className='nav-bar'>
       {(props.view === 'songs' || props.view === 'shares') && <BackButton onClick={props.returnToPlaylists} />}

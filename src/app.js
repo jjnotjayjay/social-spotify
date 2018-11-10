@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Login from './login.js'
-import PageHeader from './page-header.js'
+import NavBar from './nav-bar.js'
 import Playlists from './playlists.js'
 import Songs from './songs.js'
 import UserList from './user-list.js'
@@ -77,28 +77,28 @@ class App extends React.Component {
       case 'playlist':
         return (
           <div>
-            <PageHeader userImage={userImage} unseenPlaylists={unseenPlaylists} updateView={updateView} />
+            <NavBar userImage={userImage} unseenPlaylists={unseenPlaylists} updateView={updateView} />
             <Playlists accessToken={accessToken} updateSelected={updateSelectedPlaylist} />
           </div>
         )
       case 'songs':
         return (
           <div>
-            <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <NavBar view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
             <Songs accessToken={accessToken} userId={userId} selectedPlaylistId={selectedPlaylistId} />
           </div>
         )
       case 'users':
         return (
           <div>
-            <PageHeader view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <NavBar view={view} userImage={userImage} updateView={updateView} unseenPlaylists={unseenPlaylists} />
             <UserList userId={userId} userDisplayName={userDisplayName} selectedPlaylistId={selectedPlaylistId} selectedPlaylistName={selectedPlaylistName} updateView={updateView} />
           </div>
         )
       case 'shares':
         return (
           <div>
-            <PageHeader view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
+            <NavBar view={view} userImage={userImage} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
             <Shares accessToken={accessToken} userId={userId} fetchUnseenPlaylists={fetchUnseenPlaylists} updateView={updateView} />
           </div>
         )
