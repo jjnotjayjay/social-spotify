@@ -67,14 +67,14 @@ export default class Shares extends React.Component {
 
   render() {
     const { shares, confirmFollowDisplayed, playlistName, sendingUserName } = this.state
-    const { hideConfirmFollow, followPlaylist } = this
+    const { displayConfirmFollow, hideConfirmFollow, followPlaylist } = this
     return (
       <OpaqueList>
         {shares.length > 0 && shares.map(share => {
           const date = new Date(share.currentTime).toString().split(' ')
           const formattedDate = date[0] + ', ' + date[1] + ' ' + date[2]
           return (
-            <ListItem key={share.playlistId} onClick={() => this.displayConfirmFollow(share)}>
+            <ListItem key={share.playlistId} onClick={() => displayConfirmFollow(share)}>
               {!share.seen
                 ? <BoldListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />
                 : <ListItemText primary={share.playlistName} secondary={'from ' + share.sendingUserName} />}
