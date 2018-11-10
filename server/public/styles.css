@@ -50,7 +50,7 @@ body {
   max-height: calc(40px + 1vh);
 }
 
-.confirm-share {
+.confirmation-modal {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 1rem;
   font-size: 0.92rem;
