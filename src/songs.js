@@ -75,9 +75,11 @@ export default class Songs extends React.Component {
 
   render() {
     const { songs } = this.state
+    const { selectedPlaylistName } = this.props
     const { storeRating } = this
     return (
       <OpaqueList>
+        <span className="playlist-title">{selectedPlaylistName}</span>
         {songs && songs.map(song => {
           return (
             <div key={song.track.id}>

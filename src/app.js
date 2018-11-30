@@ -89,7 +89,7 @@ class App extends React.Component {
         return (
           <div>
             <NavBar view={view} userImage={user.image} returnToPlaylists={returnToPlaylists} updateView={updateView} unseenPlaylists={unseenPlaylists} />
-            <Songs accessToken={accessToken} userId={user.id} selectedPlaylistId={selectedPlaylist.id} />
+            <Songs accessToken={accessToken} userId={user.id} selectedPlaylistId={selectedPlaylist.id} selectedPlaylistName={selectedPlaylist.name} />
           </div>
         )
       case 'users':
